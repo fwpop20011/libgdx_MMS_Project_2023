@@ -82,7 +82,7 @@ public class PlayScreen implements Screen {
 
         //world music
         musicLoader = new MusicLoader("assets/audio/music/mario_music.ogg");
-        musicLoader.setVolume(10);
+        musicLoader.setVolume(0);
         musicLoader.playMusic(1);
     }
 
@@ -144,10 +144,11 @@ public class PlayScreen implements Screen {
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 
-        //TODO stage manager
         //Game overScreen
-        game.setScreen(new GameOverScreen(game));
-        dispose();
+        if(player.isPlayerDead()){
+            game.setScreen(new GameOverScreen(game));
+            dispose();
+        }
     }
 
     @Override

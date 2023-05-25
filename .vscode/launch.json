@@ -16,7 +16,7 @@
             "request": "launch",
             "mainClass": "com.mygdx.game.DesktopLauncher",
             "projectName": "MMS-game-desktop",
-            "vmArgs": "-XstartOnFirstThread"
+            // "vmArgs": "-XstartOnFirstThread"
         },
         {
             "type": "java",

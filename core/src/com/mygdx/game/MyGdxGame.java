@@ -34,7 +34,7 @@ public class MyGdxGame extends Game {
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		assetManager =new AssetManager();
+		assetManager = new AssetManager();
 		assetManager.load("assets/audio/music/mario_music.ogg", Music.class);
 		assetManager.load("assets/audio/sounds/coin.wav", Sound.class);
 		assetManager.load("assets/audio/sounds/breakblock.wav", Sound.class);

@@ -14,10 +14,20 @@ import com.mygdx.game.Screens.PlayScreen;
 public class Goomba extends Enemy {
     private float stateTimer;
     private Animation walkAnimation;
+    private boolean isDead;
+    private boolean isDestroyed;
+    private boolean disapear;
+    private float deathTime;
+    private boolean moveLeft;
     Array<TextureRegion> textures = new Array<TextureRegion>();
 
     public Goomba(PlayScreen screen, float x, float y) {
         super(screen, x, y);
+
+        moveLeft = true;
+        disapear = false;
+        isDestroyed = false;
+        isDead = false;
 
         for (int i = 0; i < 2; i++) {
             textures.add(new TextureRegion(screen.getAtlas().findRegion("goomba").getTexture(), 227 + i *16 , 9, 16, 16));
@@ -31,8 +41,25 @@ public class Goomba extends Enemy {
 
     public void update(float deltaT) {
         stateTimer += deltaT;
-        setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
-        setRegion(((TextureRegion) walkAnimation.getKeyFrame(stateTimer, true)));
+
+        move(deltaT);
+        if(isDead && !isDestroyed){
+            world.destroyBody(body);
+            isDestroyed = true;
+            setRegion(new TextureRegion(screen.getAtlas().findRegion("goomba").getTexture(), 227 + 32 , 9, 16, 16));
+        } else if(!isDead){
+            setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
+            setRegion(((TextureRegion) walkAnimation.getKeyFrame(stateTimer, true)));
+        } else if(isDead && isDestroyed && (disapear)){
+            setRegion(new TextureRegion(screen.getAtlas().findRegion("goomba").getTexture(), 227 + 100 , 9, 16, 16));
+        }
+
+        if(isDead && !disapear){
+            deathTime += deltaT;
+            if(deathTime > 3){
+                disapear = true;
+            }
+        }
     }
 
     @Override
@@ -54,7 +81,7 @@ public class Goomba extends Enemy {
         MyGdxGame.PIPE_BIT;
 
         fDef.shape = shape;
-        body.createFixture(fDef);
+        body.createFixture(fDef).setUserData(this);;
 
         PolygonShape head = new PolygonShape(); 
         Vector2[] vertors = {new Vector2(-5, 8), new Vector2(5, 8), new Vector2(-3, 3), new Vector2(3, 3)};
@@ -66,6 +93,31 @@ public class Goomba extends Enemy {
         
         body.createFixture(fDef).setUserData(this);
         setBounds(getX(), getY(), 16, 16);
+    }
+
+    /**
+     * moves the goomba left until the direction is switched
+     * @param deltaT
+     */
+    public void move(float deltaT){
+        if(moveLeft && body.getLinearVelocity().x >= -0.5 * MyGdxGame.PPM){
+            //move left
+            body.applyLinearImpulse(new Vector2(-1f * MyGdxGame.PPM, 0), body.getWorldCenter(), true);
+        } else if(!moveLeft && body.getLinearVelocity().x <= 0.5 * MyGdxGame.PPM){
+            //move right
+            body.applyLinearImpulse(new Vector2(1f * MyGdxGame.PPM, 0), body.getWorldCenter(), true);
+        }
+    }
+    
+
+    @Override
+    public void hitOnHead() {
+        isDead = true;
+    }
+
+    @Override
+    public void hitObject() {
+        moveLeft = !moveLeft;
     }
     
 }

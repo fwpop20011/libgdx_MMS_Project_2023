@@ -31,6 +31,8 @@ public class GameOverScreen implements Screen {
         table.center();
         table.setFillParent(true);
 
+        
+
         Label gameOverLabel = new Label("game over", font);
         Label playLabel = new Label("Click to respawn", font);
         table.add(gameOverLabel).expandX();

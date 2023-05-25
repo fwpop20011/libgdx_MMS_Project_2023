@@ -30,6 +30,7 @@ public class Player extends Sprite {
     private Animation playerJump;
     private float stateTimer;
     private boolean runningRight;
+    private boolean isDead;
 
     public Player(PlayScreen screen) {
         super(screen.getAtlas().findRegion("little_mario"));
@@ -41,6 +42,8 @@ public class Player extends Sprite {
         runningRight = true;
 
         Array<TextureRegion> textures = new Array<TextureRegion>();
+        isDead = false;
+
         // load the running animation from the .pack
         for (int i = 1; i < 4; i++) {
             textures.add(new TextureRegion(getTexture(), i * 16, 11, 16, 16));
@@ -128,7 +131,7 @@ public class Player extends Sprite {
         fDef.filter.maskBits = MyGdxGame.DEFAULT | MyGdxGame.COIN_BIT | MyGdxGame.BRICK_BIT | MyGdxGame.PIPE_BIT | MyGdxGame.ENEMY_BIT | MyGdxGame.ENEMY_HEAD_BIT;
 
         fDef.shape = shape;
-        body.createFixture(fDef);
+        body.createFixture(fDef).setUserData(this);;
 
         EdgeShape head = new EdgeShape();
         head.set(new Vector2(-2, 7), new Vector2(2, 7));
@@ -143,12 +146,27 @@ public class Player extends Sprite {
             body.applyLinearImpulse(new Vector2(0, 10 * MyGdxGame.PPM), body.getWorldCenter(), true);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && body.getLinearVelocity().x <= 10 * MyGdxGame.PPM) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && body.getLinearVelocity().x <= 5 * MyGdxGame.PPM) {
             body.applyLinearImpulse(new Vector2(0.2f * MyGdxGame.PPM, 0), body.getWorldCenter(), true);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && body.getLinearVelocity().x >= -10 * MyGdxGame.PPM) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && body.getLinearVelocity().x >= -5 * MyGdxGame.PPM) {
             body.applyLinearImpulse(new Vector2(-0.2f * MyGdxGame.PPM, 0), body.getWorldCenter(), true);
         }
+    }
+
+    /**
+     * sets the player sprite to dead
+     */
+    public void playerDeath(){
+        isDead = true;
+    }
+
+    /**
+     * 
+     * @return true if the player is dead and false if not
+     */
+    public boolean isPlayerDead(){
+        return isDead;
     }
 }
