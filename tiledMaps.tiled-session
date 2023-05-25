@@ -1,0 +1,90 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "assets/worlds/marioRecreate/1/level1.tmx",
+    "expandedProjectPaths": [
+        "assets/worlds",
+        "desktop",
+        "assets/worlds/marioRecreate/1",
+        "assets/worlds/marioRecreate",
+        ".",
+        "assets"
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "": {
+            "scaleInEditor": 2
+        },
+        "C:/Users/Felix/AppData/Local/Temp/Rar$DRa2200.49145/SuperMario-master/android/assets/level1.tmx": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 2596,
+                "y": 143.66666666666669
+            }
+        },
+        "C:/Users/Felix/AppData/Local/Temp/Rar$DRa2200.49145/SuperMario-master/android/assets/level1.tmx#tileset_gutter": {
+            "scaleInDock": 1
+        },
+        "assets/worlds/marioRecreate/1/level1.tmx": {
+            "scale": 4,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": -20.75,
+                "y": 103.25
+            }
+        },
+        "assets/worlds/marioRecreate/1/level1.tmx#tileset_gutter": {
+            "scaleInDock": 4,
+            "scaleInEditor": 5.5
+        },
+        "assets/worlds/marioRecreate/1/world1-1.tmx": {
+            "expandedObjectLayers": [
+                4,
+                8,
+                6,
+                7
+            ],
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 226,
+                "y": 172.66666666666669
+            }
+        },
+        "superMarioBros2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tileset_gutter.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "C:/Users/Felix/OneDrive/JKU/java/libgdx/assets/tileSets",
+    "map.height": 13,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 240,
+    "openFiles": [
+        "assets/worlds/marioRecreate/1/level1.tmx"
+    ],
+    "project": "tiledMaps.tiled-project",
+    "recentFiles": [
+        "assets/worlds/marioRecreate/1/level1.tmx",
+        "tileset_gutter.tsx",
+        "superMarioBros2.tsx",
+        "C:/Users/Felix/AppData/Local/Temp/Rar$DRa2200.49145/SuperMario-master/android/assets/level1.tmx",
+        "assets/worlds/marioRecreate/1/world1-1.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.margin": 1,
+    "tileset.spacing": 2,
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
