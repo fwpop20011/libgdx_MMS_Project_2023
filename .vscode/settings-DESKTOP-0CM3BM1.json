@@ -1,0 +1,22 @@
+{
+    "[java]": {
+        "editor.suggest.showClasses": true,
+        "editor.suggest.showMethods": true,
+        "editor.suggest.showConstructors": true,
+        "editor.suggest.showConstants": true,
+        "editor.suggest.showEnumMembers": true,
+        "editor.suggest.showEnums": true,
+        "editor.suggest.showEvents": true,
+        "editor.suggest.showFields": true,
+        "editor.suggest.showInterfaces": true,
+        "editor.suggest.showKeywords": true,
+        "editor.suggest.showVariables": true,
+        "editor.suggest.showSnippets": true,
+        "editor.suggest.showWords": true,
+        "editor.lightbulb.enabled": true,
+        "editor.quickSuggestions": {
+            "other": "on"
+        }
+    },
+    "java.inlayHints.parameterNames.exclusions": []
+}
