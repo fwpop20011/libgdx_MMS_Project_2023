@@ -5,11 +5,11 @@
     },
     "activeFile": "assets/worlds/marioRecreate/1/level1.tmx",
     "expandedProjectPaths": [
-        "assets",
-        "desktop",
         "assets/worlds/marioRecreate/1",
-        "assets/worlds",
         ".",
+        "desktop",
+        "assets",
+        "assets/worlds",
         "assets/worlds/marioRecreate"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -29,15 +29,15 @@
             "scaleInDock": 1
         },
         "assets/worlds/marioRecreate/1/level1.tmx": {
-            "scale": 4,
+            "scale": 3,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 170.25,
-                "y": 95
+                "x": 213,
+                "y": 121.66666666666666
             }
         },
         "assets/worlds/marioRecreate/1/level1.tmx#tileset_gutter": {
-            "scaleInDock": 4,
+            "scaleInDock": 1,
             "scaleInEditor": 5.5
         },
         "assets/worlds/marioRecreate/1/world1-1.tmx": {

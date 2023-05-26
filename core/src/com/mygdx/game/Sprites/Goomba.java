@@ -73,7 +73,7 @@ public class Goomba extends Enemy {
         CircleShape shape = new CircleShape();
         shape.setRadius(8);
         fDef.filter.categoryBits = MyGdxGame.ENEMY_BIT;
-        //what can the player collid with;
+        //what can the goomba collid with;
         fDef.filter.maskBits = MyGdxGame.DEFAULT | 
         MyGdxGame.COIN_BIT | 
         MyGdxGame.BRICK_BIT |
@@ -81,10 +81,10 @@ public class Goomba extends Enemy {
         MyGdxGame.PIPE_BIT;
 
         fDef.shape = shape;
-        body.createFixture(fDef).setUserData(this);;
+        body.createFixture(fDef).setUserData(this);
 
         PolygonShape head = new PolygonShape(); 
-        Vector2[] vertors = {new Vector2(-5, 8), new Vector2(5, 8), new Vector2(-3, 3), new Vector2(3, 3)};
+        Vector2[] vertors = {new Vector2(-6, 9), new Vector2(6, 9), new Vector2(-3, 3), new Vector2(3, 3)};
         head.set(vertors);
 
         fDef.shape = head;

@@ -55,6 +55,13 @@ public class WorldContactListener implements ContactListener {
                     ((Player) fixB.getUserData()).playerDeath();
                 }
                 break;
+            case MyGdxGame.PLAYER_BIT | MyGdxGame.PIPE_TOP_BIT:
+            if (fixA.getFilterData().categoryBits == MyGdxGame.PLAYER_BIT) {
+                ((Player) fixA.getUserData()).playerDeath();
+            } else if (fixB.getFilterData().categoryBits == MyGdxGame.PLAYER_BIT) {
+                ((Player) fixB.getUserData()).playerDeath();
+            }
+            break;  
         }
     }
 

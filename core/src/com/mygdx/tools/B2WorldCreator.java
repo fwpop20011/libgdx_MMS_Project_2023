@@ -9,13 +9,13 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.MyGdxGame;
+import com.mygdx.Objects.Pipe;
 import com.mygdx.game.Screens.PlayScreen;
 import com.mygdx.game.Sprites.Brick;
 import com.mygdx.game.Sprites.Coin;
 
 public class B2WorldCreator {
-    public B2WorldCreator(PlayScreen screen){
+    public B2WorldCreator(PlayScreen screen) {
         World world = screen.getWorld();
         TiledMap map = screen.getMap();
 
@@ -24,8 +24,8 @@ public class B2WorldCreator {
         FixtureDef fDef = new FixtureDef();
         Body body;
 
-        //create Ground
-        for(MapObject o : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
+        // create Ground
+        for (MapObject o : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) o).getRectangle();
 
             bDef.type = BodyDef.BodyType.StaticBody;
@@ -33,40 +33,30 @@ public class B2WorldCreator {
 
             body = world.createBody(bDef);
 
-            shape.setAsBox(rect.getWidth()/2, rect.getHeight()/2);
+            shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
             fDef.shape = shape;
             body.createFixture(fDef);
         }
 
-        //create pipe
-        for(MapObject o : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
+        // create pipe
+        for (MapObject o : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) o).getRectangle();
-
-            bDef.type = BodyDef.BodyType.StaticBody;
-            bDef.position.set(rect.getX() + (rect.getWidth()) / 2, rect.getY() + (rect.getHeight() / 2));
-
-            body = world.createBody(bDef);
-
-            shape.setAsBox(rect.getWidth()/2, rect.getHeight()/2);
-            fDef.shape = shape;
-            fDef.filter.categoryBits = MyGdxGame.PIPE_BIT;
-            body.createFixture(fDef);
+            new Pipe(screen, rect);
         }
 
-        //create brickes
-        for(MapObject o : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
+        // create brickes
+        for (MapObject o : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) o).getRectangle();
 
             new Brick(screen, rect);
         }
 
-        //create coin
-        for(MapObject o : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+        // create coin
+        for (MapObject o : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) o).getRectangle();
 
             new Coin(screen, rect);
         }
     }
 
-    
 }

@@ -125,13 +125,13 @@ public class Player extends Sprite {
 
         FixtureDef fDef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(6);
+        shape.setRadius(7);
         fDef.filter.categoryBits = MyGdxGame.PLAYER_BIT;
         //what can the player collid with;
         fDef.filter.maskBits = MyGdxGame.DEFAULT | MyGdxGame.COIN_BIT | MyGdxGame.BRICK_BIT | MyGdxGame.PIPE_BIT | MyGdxGame.ENEMY_BIT | MyGdxGame.ENEMY_HEAD_BIT;
 
         fDef.shape = shape;
-        body.createFixture(fDef).setUserData(this);;
+        body.createFixture(fDef).setUserData(this);
 
         EdgeShape head = new EdgeShape();
         head.set(new Vector2(-2, 7), new Vector2(2, 7));
