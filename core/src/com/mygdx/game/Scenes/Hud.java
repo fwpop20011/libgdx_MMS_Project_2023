@@ -64,6 +64,17 @@ public class Hud implements Disposable {
         stage.addActor(table);
     }
 
+    public void addPoint(int points){
+        score += points;
+        scoreLabel.setText(String.format("%06d", score));
+    }
+
+    public void reName(String worldName, String levelName, String PlayerName){
+        worldLabel.setText(worldName);
+        levLabel.setText(levelName);
+        playerLabel.setText(playerName);
+    }
+
     @Override
     public void dispose() {
         stage.dispose();

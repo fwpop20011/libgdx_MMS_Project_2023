@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -19,6 +20,7 @@ import com.mygdx.game.Scenes.Hud;
 import com.mygdx.game.Sprites.Goomba;
 import com.mygdx.game.Sprites.Player;
 import com.mygdx.tools.B2WorldCreator;
+import com.mygdx.tools.KeyGen;
 import com.mygdx.tools.MusicLoader;
 import com.mygdx.tools.WorldContactListener;
 
@@ -39,11 +41,11 @@ public class PlayScreen implements Screen {
     private Box2DDebugRenderer b2dr;
     private World world;
 
-    //sprites
+    // sprites
     private Player player;
-    private Goomba goomba;
+    Array<Goomba> goombas;
 
-    //music
+    // music
     MusicLoader musicLoader;
 
     public PlayScreen(MyGdxGame game) {
@@ -64,29 +66,28 @@ public class PlayScreen implements Screen {
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("assets/worlds/marioRecreate/1/level1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
-        
+
         // set the game camera to be centered at the start of the level
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
         world = new World(new Vector2(0, -7 * MyGdxGame.PPM), true);
         b2dr = new Box2DDebugRenderer();
 
-        //generates a new map with objects
-        new B2WorldCreator(this); 
+        // generates a new map with objects
+        B2WorldCreator b2WorldCreator = new B2WorldCreator(this);
+        goombas = b2WorldCreator.getGoombas();
 
         // create the sprite in the game world
         player = new Player(this);
-        goomba = new Goomba(this, 64, 32);
+        goombas.add(new Goomba(this, 64, 32));
 
         world.setContactListener(new WorldContactListener());
 
-        //world music
+        // world music
         musicLoader = new MusicLoader("assets/audio/music/mario_music.ogg");
         musicLoader.setVolume(0);
         musicLoader.playMusic(1);
     }
-
-    
 
     public void update(float deltaT) {
         gameCam.position.x = player.body.getPosition().x;
@@ -95,7 +96,9 @@ public class PlayScreen implements Screen {
         world.step(1 / 60f, 6, 2);
 
         player.update(deltaT);
-        goomba.update(deltaT);
+        for (Goomba goomba : goombas) {
+            goomba.update(deltaT);
+        }
 
         gameCam.update();
         // renders what the game camera can see
@@ -106,11 +109,11 @@ public class PlayScreen implements Screen {
         return atlas;
     }
 
-    public TiledMap getMap(){
+    public TiledMap getMap() {
         return map;
     }
 
-    public World getWorld(){
+    public World getWorld() {
         return world;
     }
 
@@ -136,30 +139,40 @@ public class PlayScreen implements Screen {
         game.batch.setProjectionMatrix(gameCam.combined);
         game.batch.begin();
         player.draw(game.batch);
-        goomba.draw(game.batch);
+
+        for (Goomba goomba : goombas) {
+            goomba.draw(game.batch);
+        }
+
         game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 
-        //Game overScreen
-        if(player.isPlayerDead()){
-            game.setScreen(new GameOverScreen(game));
-            dispose();
-        } 
-
-        //other minigames
-        if(player.nextLevel()){
-            switch(player.getPlayerOnPipeKey()){
-                case 1:
-                    Gdx.app.log("nextLevel", "gameOverScreen");
-                    game.setScreen(new GameOverScreen(game));
-                    break;
-            }    
-
+        // Game overScreen
+        if (player.isPlayerDead()) {
+            game.setScreen(new GameOverScreen(game, 0));
             dispose();
         }
-        
+
+        // other minigames
+        if (player.nextLevel()) {
+            switch (player.getPlayerOnPipeKey()) {
+                case 1:
+                    Gdx.app.log("nextLevel", "gameOverScreen");
+                    musicLoader.playMusic(0);
+                    game.setScreen(new GameOverScreen(game, 0));
+                    dispose();
+                    break;
+                case 2:
+                    Gdx.app.log("nextLevel", "BouncingBall");
+                    musicLoader.playMusic(0);
+                    game.setScreen(new BouncingBall(game));
+                    dispose();
+                    break;
+            }
+        }
+
     }
 
     @Override
@@ -189,5 +202,6 @@ public class PlayScreen implements Screen {
         world.dispose();
         b2dr.dispose();
         hud.dispose();
+        KeyGen.reset(-4);
     }
 }

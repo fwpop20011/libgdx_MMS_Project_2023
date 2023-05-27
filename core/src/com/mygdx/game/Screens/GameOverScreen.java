@@ -17,11 +17,14 @@ import com.mygdx.game.MyGdxGame;
 public class GameOverScreen implements Screen {
     private Viewport viewport;
     private Stage stage;
+    private int miniGameIndex;
 
     private Game game;
 
-    public GameOverScreen(Game game){
+    public GameOverScreen(Game game, int miniGameIndex) {
         this.game = game;
+        this.miniGameIndex = miniGameIndex;
+
         viewport = new FitViewport(MyGdxGame.V_Height, MyGdxGame.V_Width, new OrthographicCamera());
         stage = new Stage(viewport, ((MyGdxGame) game).batch);
 
@@ -42,25 +45,28 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void show() {
-       
+
     }
 
     @Override
     public void render(float delta) {
-        if(Gdx.input.justTouched()){
-            game.setScreen(new PlayScreen((MyGdxGame) game));
-            dispose();
+        if (Gdx.input.justTouched()) {
+            switch (miniGameIndex) {
+                case 0:
+                    game.setScreen(new PlayScreen((MyGdxGame) game));
+                    dispose();
+            }
         }
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
+
         stage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
-
+        viewport.update(width, height);
     }
 
     @Override
@@ -82,5 +88,5 @@ public class GameOverScreen implements Screen {
     public void dispose() {
         stage.dispose();
     }
-    
+
 }
