@@ -64,14 +64,14 @@ public class PlayScreen implements Screen {
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("assets/worlds/marioRecreate/1/level1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
-
+        
         // set the game camera to be centered at the start of the level
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
         world = new World(new Vector2(0, -7 * MyGdxGame.PPM), true);
         b2dr = new Box2DDebugRenderer();
 
-        //generates a new map
+        //generates a new map with objects
         new B2WorldCreator(this); 
 
         // create the sprite in the game world
@@ -89,8 +89,6 @@ public class PlayScreen implements Screen {
     
 
     public void update(float deltaT) {
-        player.deviceInput(deltaT);
-
         gameCam.position.x = player.body.getPosition().x;
 
         // calculates the physics every 60 seconds
@@ -148,7 +146,20 @@ public class PlayScreen implements Screen {
         if(player.isPlayerDead()){
             game.setScreen(new GameOverScreen(game));
             dispose();
+        } 
+
+        //other minigames
+        if(player.nextLevel()){
+            switch(player.getPlayerOnPipeKey()){
+                case 1:
+                    Gdx.app.log("nextLevel", "gameOverScreen");
+                    game.setScreen(new GameOverScreen(game));
+                    break;
+            }    
+
+            dispose();
         }
+        
     }
 
     @Override

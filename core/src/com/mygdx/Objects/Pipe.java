@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Screens.PlayScreen;
+import com.mygdx.tools.KeyGen;
 
 public class Pipe {
     protected World world;
@@ -20,13 +21,15 @@ public class Pipe {
     protected TiledMapTile tileMap;
     protected Rectangle bounds;
     protected Body body;
+    private final int key;
 
     protected Fixture fixture;
 
-    public Pipe(PlayScreen screen, Rectangle bounds){ 
+    public Pipe(PlayScreen screen, Rectangle bounds) {
         this.world = screen.getWorld();
         this.map = screen.getMap();
         this.bounds = bounds;
+        this.key = KeyGen.getKey();
 
         BodyDef bDef = new BodyDef();
         FixtureDef fDef = new FixtureDef();
@@ -44,36 +47,24 @@ public class Pipe {
         setCategoryFilter(MyGdxGame.PIPE_BIT);
         fixture.setUserData(this);
 
-        PolygonShape head = new PolygonShape(); 
-        Vector2[] vertors = {new Vector2(-5, 8), new Vector2(5, 8), new Vector2(-3, 3), new Vector2(3, 3)};
+        PolygonShape head = new PolygonShape();
+
+        Vector2[] vertors = { new Vector2(-bounds.getWidth()/2, bounds.getHeight() / 2), new Vector2(bounds.getWidth()/2, bounds.getHeight() / 2),
+                new Vector2(-3, bounds.getHeight() / 4), new Vector2(3, bounds.getHeight() / 4) };
         head.set(vertors);
 
         fDef.shape = head;
-        fDef.restitution = 0.5f;
         fDef.filter.categoryBits = MyGdxGame.PIPE_TOP_BIT;
-        
         body.createFixture(fDef).setUserData(this);
-    }
-
-
-    private void define(){
-        BodyDef bDef = new BodyDef();
-        FixtureDef fDef = new FixtureDef();
-        PolygonShape shape = new PolygonShape();
-
-        bDef.type = BodyDef.BodyType.StaticBody;
-        bDef.position.set(bounds.getX() + (bounds.getWidth()) / 2, bounds.getY() + (bounds.getHeight() / 2));
-
-        body = world.createBody(bDef);
-
-        shape.setAsBox(bounds.getWidth() / 2, bounds.getHeight() / 2);
-        fDef.shape = shape;
-        fixture = body.createFixture(fDef);
     }
 
     private void setCategoryFilter(short filterBit) {
         Filter filter = new Filter();
         filter.categoryBits = filterBit;
         fixture.setFilterData(filter);
+    }
+
+    public int getKey(){
+        return key;
     }
 }

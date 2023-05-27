@@ -31,6 +31,9 @@ public class Player extends Sprite {
     private float stateTimer;
     private boolean runningRight;
     private boolean isDead;
+    private boolean nextLevel;
+    private boolean onTopOfPipe;
+    private int onTopOfPipeKey;
 
     public Player(PlayScreen screen) {
         super(screen.getAtlas().findRegion("little_mario"));
@@ -38,8 +41,11 @@ public class Player extends Sprite {
 
         curState = State.STANDING;
         prevState = State.STANDING;
+        onTopOfPipeKey = 0;
         stateTimer = 0;
         runningRight = true;
+        onTopOfPipe = false;
+        nextLevel = false;
 
         Array<TextureRegion> textures = new Array<TextureRegion>();
         isDead = false;
@@ -65,6 +71,7 @@ public class Player extends Sprite {
     }
 
     public void update(float deltaT) {
+        deviceInput(deltaT);
         setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
         setRegion(getFrame(deltaT));
     }
@@ -127,8 +134,14 @@ public class Player extends Sprite {
         CircleShape shape = new CircleShape();
         shape.setRadius(7);
         fDef.filter.categoryBits = MyGdxGame.PLAYER_BIT;
-        //what can the player collid with;
-        fDef.filter.maskBits = MyGdxGame.DEFAULT | MyGdxGame.COIN_BIT | MyGdxGame.BRICK_BIT | MyGdxGame.PIPE_BIT | MyGdxGame.ENEMY_BIT | MyGdxGame.ENEMY_HEAD_BIT;
+        // what can the player collid with;
+        fDef.filter.maskBits = MyGdxGame.DEFAULT |
+                MyGdxGame.COIN_BIT |
+                MyGdxGame.BRICK_BIT |
+                MyGdxGame.PIPE_BIT |
+                MyGdxGame.ENEMY_BIT |
+                MyGdxGame.ENEMY_HEAD_BIT |
+                MyGdxGame.PIPE_TOP_BIT;
 
         fDef.shape = shape;
         body.createFixture(fDef).setUserData(this);
@@ -137,7 +150,7 @@ public class Player extends Sprite {
         head.set(new Vector2(-2, 7), new Vector2(2, 7));
         fDef.shape = head;
         fDef.isSensor = true;
-        
+
         body.createFixture(fDef).setUserData("head");
     }
 
@@ -153,12 +166,15 @@ public class Player extends Sprite {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && body.getLinearVelocity().x >= -5 * MyGdxGame.PPM) {
             body.applyLinearImpulse(new Vector2(-0.2f * MyGdxGame.PPM, 0), body.getWorldCenter(), true);
         }
+        if(Gdx.input.isKeyPressed(Input.Keys.DOWN) && onTopOfPipe && onTopOfPipeKey > 0){
+            nextLevel = true;
+        }
     }
 
     /**
      * sets the player sprite to dead
      */
-    public void playerDeath(){
+    public void playerDeath() {
         isDead = true;
     }
 
@@ -166,7 +182,21 @@ public class Player extends Sprite {
      * 
      * @return true if the player is dead and false if not
      */
-    public boolean isPlayerDead(){
+    public boolean isPlayerDead() {
         return isDead;
+    }
+
+    public void onTopOfPipe(int PipeKey){
+        onTopOfPipeKey = PipeKey;
+        Gdx.app.log("Player", "on pipe: " + onTopOfPipeKey);
+        onTopOfPipe = !onTopOfPipe;
+    }
+
+    public boolean nextLevel(){
+        return nextLevel;
+    }
+
+    public int getPlayerOnPipeKey(){
+        return onTopOfPipeKey;
     }
 }
