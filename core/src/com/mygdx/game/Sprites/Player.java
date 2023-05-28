@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.Screens.Dinorunner;
 import com.mygdx.game.Screens.PlayScreen;
 
 public class Player extends Sprite {

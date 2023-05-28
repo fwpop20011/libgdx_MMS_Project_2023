@@ -73,5 +73,6 @@ public class BouncingBall implements Screen {
     @Override
     public void dispose() {
         hud.dispose();
+        shape.dispose();
     }
 }

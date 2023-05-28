@@ -149,30 +149,7 @@ public class PlayScreen implements Screen {
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 
-        // Game overScreen
-        if (player.isPlayerDead()) {
-            game.setScreen(new GameOverScreen(game, 0));
-            dispose();
-        }
-
-        // other minigames
-        if (player.nextLevel()) {
-            switch (player.getPlayerOnPipeKey()) {
-                case 1:
-                    Gdx.app.log("nextLevel", "gameOverScreen");
-                    musicLoader.playMusic(0);
-                    game.setScreen(new GameOverScreen(game, 0));
-                    dispose();
-                    break;
-                case 2:
-                    Gdx.app.log("nextLevel", "BouncingBall");
-                    musicLoader.playMusic(0);
-                    game.setScreen(new BouncingBall(game));
-                    dispose();
-                    break;
-            }
-        }
-
+        NextLevel();
     }
 
     @Override
@@ -203,5 +180,31 @@ public class PlayScreen implements Screen {
         b2dr.dispose();
         hud.dispose();
         KeyGen.reset(-4);
+    }
+
+    public void NextLevel() {
+        // Game overScreen
+        if (player.isPlayerDead()) {
+            game.setScreen(new GameOverScreen(game, 0));
+            dispose();
+        }
+
+        // other minigames
+        if (player.nextLevel()) {
+            switch (player.getPlayerOnPipeKey()) {
+                case 1:
+                    Gdx.app.log("nextLevel", "Dinorunner");
+                    musicLoader.playMusic(0);
+                    game.setScreen(new Dinorunner(game));
+                    dispose();
+                    break;
+                case 2:
+                    Gdx.app.log("nextLevel", "BouncingBall");
+                    musicLoader.playMusic(0);
+                    game.setScreen(new BouncingBall(game));
+                    dispose();
+                    break;
+            }
+        }
     }
 }
