@@ -3,16 +3,16 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "assets/worlds/marioRecreate/1/level1.tmx",
+    "activeFile": "assets/worlds/marioRecreate/1/unbenannt.tmx",
     "expandedProjectPaths": [
-        "assets/worlds/marioRecreate/1",
         ".",
         "desktop",
+        "assets/worlds/marioRecreate/1",
         "assets",
         "assets/worlds",
         "assets/worlds/marioRecreate"
     ],
-    "file.lastUsedOpenFilter": "All Files (*)",
+    "file.lastUsedOpenFilter": "Alle Dateien (*)",
     "fileStates": {
         "": {
             "scaleInEditor": 2
@@ -28,17 +28,102 @@
         "C:/Users/Felix/AppData/Local/Temp/Rar$DRa2200.49145/SuperMario-master/android/assets/level1.tmx#tileset_gutter": {
             "scaleInDock": 1
         },
+        "assets/worlds/marioRecreate/1/1bit 16px patterns and tiles - outlines.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "assets/worlds/marioRecreate/1/1bit 16px patterns and tiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3
+        },
+        "assets/worlds/marioRecreate/1/CastleTiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "assets/worlds/marioRecreate/1/DoodleJump.tmx": {
+            "scale": 1,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 149,
+                "y": 2539
+            }
+        },
+        "assets/worlds/marioRecreate/1/Full.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "assets/worlds/marioRecreate/1/Grass sprite sheet.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "assets/worlds/marioRecreate/1/InfernoTiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "assets/worlds/marioRecreate/1/PlatformTilesNatureFree.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "assets/worlds/marioRecreate/1/SewerTiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "assets/worlds/marioRecreate/1/TileSet_V1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "assets/worlds/marioRecreate/1/TileSet_V2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "assets/worlds/marioRecreate/1/Tileset.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "assets/worlds/marioRecreate/1/[32x32] Dungeon Bricks Plain.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "assets/worlds/marioRecreate/1/[32x32] Dungeon Bricks Shadow.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "assets/worlds/marioRecreate/1/assets_spritesheet_v2_free.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "assets/worlds/marioRecreate/1/level1.tmx": {
             "scale": 3,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 213,
-                "y": 121.66666666666666
+                "x": 391.66666666666663,
+                "y": 120.99999999999999
             }
         },
         "assets/worlds/marioRecreate/1/level1.tmx#tileset_gutter": {
             "scaleInDock": 1,
             "scaleInEditor": 5.5
+        },
+        "assets/worlds/marioRecreate/1/mabe.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "assets/worlds/marioRecreate/1/moon.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "assets/worlds/marioRecreate/1/terrain_tiles_v2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "assets/worlds/marioRecreate/1/unbenannt.tmx": {
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 173,
+                "y": 2326
+            }
         },
         "assets/worlds/marioRecreate/1/world1-1.tmx": {
             "expandedObjectLayers": [
@@ -63,28 +148,49 @@
             "scaleInEditor": 1
         }
     },
-    "last.imagePath": "C:/Users/Felix/OneDrive/JKU/java/libgdx/assets/tileSets",
-    "map.height": 13,
+    "last.imagePath": "C:/Tilesets/GoldenCity/GoldenCity",
+    "map.height": 240,
     "map.lastUsedFormat": "tmx",
-    "map.tileHeight": 16,
-    "map.tileWidth": 16,
-    "map.width": 240,
+    "map.tileHeight": 32,
+    "map.tileWidth": 32,
+    "map.width": 13,
     "openFiles": [
-        "assets/worlds/marioRecreate/1/level1.tmx"
+        "assets/worlds/marioRecreate/1/unbenannt.tmx",
+        "assets/worlds/marioRecreate/1/assets_spritesheet_v2_free.tsx",
+        "assets/worlds/marioRecreate/1/[32x32] Dungeon Bricks Plain.tsx",
+        "assets/worlds/marioRecreate/1/[32x32] Dungeon Bricks Shadow.tsx",
+        "assets/worlds/marioRecreate/1/Full.tsx",
+        "assets/worlds/marioRecreate/1/CastleTiles.tsx",
+        "assets/worlds/marioRecreate/1/SewerTiles.tsx",
+        "assets/worlds/marioRecreate/1/InfernoTiles.tsx",
+        "assets/worlds/marioRecreate/1/TileSet_V1.tsx",
+        "assets/worlds/marioRecreate/1/TileSet_V2.tsx",
+        "assets/worlds/marioRecreate/1/Grass sprite sheet.tsx",
+        "assets/worlds/marioRecreate/1/Tileset.tsx",
+        "assets/worlds/marioRecreate/1/PlatformTilesNatureFree.tsx",
+        "assets/worlds/marioRecreate/1/mabe.tsx",
+        "assets/worlds/marioRecreate/1/moon.tsx"
     ],
     "project": "tiledMaps.tiled-project",
     "recentFiles": [
-        "assets/worlds/marioRecreate/1/level1.tmx",
-        "tileset_gutter.tsx",
-        "superMarioBros2.tsx",
-        "C:/Users/Felix/AppData/Local/Temp/Rar$DRa2200.49145/SuperMario-master/android/assets/level1.tmx",
-        "assets/worlds/marioRecreate/1/world1-1.tmx"
+        "assets/worlds/marioRecreate/1/TileSet_V2.tsx",
+        "assets/worlds/marioRecreate/1/TileSet_V1.tsx",
+        "assets/worlds/marioRecreate/1/InfernoTiles.tsx",
+        "assets/worlds/marioRecreate/1/Full.tsx",
+        "assets/worlds/marioRecreate/1/[32x32] Dungeon Bricks Shadow.tsx",
+        "assets/worlds/marioRecreate/1/[32x32] Dungeon Bricks Plain.tsx",
+        "assets/worlds/marioRecreate/1/assets_spritesheet_v2_free.tsx",
+        "assets/worlds/marioRecreate/1/moon.tsx",
+        "assets/worlds/marioRecreate/1/mabe.tsx",
+        "assets/worlds/marioRecreate/1/PlatformTilesNatureFree.tsx",
+        "assets/worlds/marioRecreate/1/Tileset.tsx",
+        "assets/worlds/marioRecreate/1/Grass sprite sheet.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.margin": 1,
     "tileset.spacing": 2,
     "tileset.tileSize": {
-        "height": 16,
-        "width": 16
+        "height": 32,
+        "width": 32
     }
 }
