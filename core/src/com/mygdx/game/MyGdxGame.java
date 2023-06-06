@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -38,6 +39,21 @@ public class MyGdxGame extends Game {
 		assetManager.load("assets/audio/sounds/coin.wav", Sound.class);
 		assetManager.load("assets/audio/sounds/breakblock.wav", Sound.class);
 		assetManager.load("assets/audio/sounds/bump.wav", Sound.class);
+
+		//Flappy Birds Sprites
+		assetManager.load("assets/worlds/FlappyBird/bg.png", Texture.class);
+		assetManager.load("assets/sprites/FlappyBird/bird.png", Texture.class);
+		assetManager.load("assets/sprites/FlappyBird/pipes_up.png", Texture.class);
+		assetManager.load("assets/sprites/FlappyBird/pipes_down.png", Texture.class);
+
+		assetManager.update();
+
+		//Flappy Birds Music
+		assetManager.load("assets/audio/music/flappy_bird_music.mp3", Music.class);
+		assetManager.load("assets/audio/sounds/flappybird/point.ogg", Sound.class);
+		assetManager.load("assets/audio/sounds/flappybird/Jump.mp3", Sound.class);
+		assetManager.load("assets/audio/sounds/flappybird/collide.mp3", Sound.class);
+
 		assetManager.finishLoading();
 		
 		setScreen(new PlayScreen(this));

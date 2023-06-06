@@ -33,19 +33,23 @@ public class Hud implements Disposable {
     Label worldLabel;
     Label playerLabel;
 
-    public Hud(SpriteBatch sb){
-        wTimer = 0;
-        timeCount = 0;
-        score = 0;
+    public Hud(SpriteBatch sb, float width, float height) {
+        viewport = new FitViewport(width, height, new OrthographicCamera(width, height));
+        stage = new Stage(viewport, sb);
+        createHud(stage);
+    }
 
+    public Hud(SpriteBatch sb){
         viewport = new FitViewport(MyGdxGame.V_Width, MyGdxGame.V_Height, new OrthographicCamera());
         stage = new Stage(viewport, sb);
+        createHud(stage);
+    }
 
+    private void createHud(Stage stage){
         Table table = new Table();
         table.top();
         table.setFillParent(true); //set table to the size of the stage
 
-       
         wTimerLabel = new Label(String.format("%4d", wTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         worldLabel =  new Label(world, new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));

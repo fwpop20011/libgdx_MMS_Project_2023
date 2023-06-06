@@ -204,6 +204,12 @@ public class PlayScreen implements Screen {
                     game.setScreen(new BouncingBall(game));
                     dispose();
                     break;
+                case 3:
+                    Gdx.app.log("nextLevel", "FlappyBirds");
+                    musicLoader.playMusic(0);
+                    game.setScreen(new FlappyBird(game));
+                    dispose();
+                    break;
             }
         }
     }
