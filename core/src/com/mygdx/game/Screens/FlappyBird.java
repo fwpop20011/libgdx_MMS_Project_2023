@@ -102,7 +102,7 @@ public class FlappyBird implements Screen {
         if(isGameOver){
             gameOverWaitTime += delta;
             if(gameOverWaitTime > 2){
-                game.setScreen(new GameOverScreen(game, 1));
+                game.setScreen(new GameOverScreen(game, 3));
             }
             return;
         }
@@ -176,6 +176,8 @@ public class FlappyBird implements Screen {
         for (Pipe pipe : pipes) {
             pipe.dispose();
         }
+
+        hud.dispose();
 
         batch.dispose();
         backgroundTexture.dispose();

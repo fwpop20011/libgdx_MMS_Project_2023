@@ -78,7 +78,8 @@ public class Goomba extends Enemy {
         MyGdxGame.COIN_BIT | 
         MyGdxGame.BRICK_BIT |
         MyGdxGame.PLAYER_BIT |
-        MyGdxGame.PIPE_BIT;
+        MyGdxGame.PIPE_BIT |
+        MyGdxGame.ENEMY_BIT;
 
         fDef.shape = shape;
         body.createFixture(fDef).setUserData(this);

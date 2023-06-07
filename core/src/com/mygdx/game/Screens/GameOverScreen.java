@@ -52,9 +52,14 @@ public class GameOverScreen implements Screen {
     public void render(float delta) {
         if (Gdx.input.justTouched()) {
             switch (miniGameIndex) {
+                //mario game
                 case 0:
                     game.setScreen(new PlayScreen((MyGdxGame) game));
                     dispose();
+                //flappy bird
+                case 3:
+                    game.setScreen(new FlappyBird((MyGdxGame) game));
+                
             }
         }
 
@@ -87,6 +92,6 @@ public class GameOverScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+        game.dispose();
     }
-
 }

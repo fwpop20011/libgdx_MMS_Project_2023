@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.mygdx.Objects.Pipe;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Sprites.Enemy;
+import com.mygdx.game.Sprites.Goomba;
 import com.mygdx.game.Sprites.InteractiveTile;
 import com.mygdx.game.Sprites.Player;
 
@@ -59,13 +60,18 @@ public class WorldContactListener implements ContactListener {
                 break;
             //if the player is on top of the pipe
             case MyGdxGame.PLAYER_BIT | MyGdxGame.PIPE_TOP_BIT:
-
                 if (fixA.getFilterData().categoryBits == MyGdxGame.PLAYER_BIT) {
                     ((Player) fixA.getUserData()).onTopOfPipe(((Pipe) fixB.getUserData()).getKey());
                 } else if (fixB.getFilterData().categoryBits == MyGdxGame.PLAYER_BIT) {
                     ((Player) fixB.getUserData()).onTopOfPipe(((Pipe) fixA.getUserData()).getKey());
                 }
-                break;  
+                break; 
+            case MyGdxGame.ENEMY_BIT | MyGdxGame.ENEMY_BIT:
+                if(fixA.getFilterData().categoryBits == MyGdxGame.ENEMY_BIT){
+                    ((Enemy) fixA.getUserData()).hitObject();
+                } else if (fixB.getFilterData().categoryBits == MyGdxGame.ENEMY_BIT) {
+                    ((Enemy) fixB.getUserData()).hitObject();
+                }
         }
     }
 

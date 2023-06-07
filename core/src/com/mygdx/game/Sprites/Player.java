@@ -14,7 +14,6 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.Screens.Dinorunner;
 import com.mygdx.game.Screens.PlayScreen;
 
 public class Player extends Sprite {
@@ -169,6 +168,9 @@ public class Player extends Sprite {
         }
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN) && onTopOfPipe && onTopOfPipeKey > 0){
             nextLevel = true;
+        }
+        if(body.getPosition().y < 0){
+            playerDeath();
         }
     }
 
