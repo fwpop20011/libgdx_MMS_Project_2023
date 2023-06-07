@@ -56,9 +56,12 @@ public class GameOverScreen implements Screen {
                 case 0:
                     game.setScreen(new PlayScreen((MyGdxGame) game));
                     dispose();
+                    break;
                 //flappy bird
                 case 3:
                     game.setScreen(new FlappyBird((MyGdxGame) game));
+                    dispose();
+                    break;
                 
             }
         }
