@@ -50,12 +50,13 @@ public class Dinorunner implements Screen {
         this.game = game;
         Texture backgroundTexture = new Texture("assets/worlds/Dinorunner/illustration-4908159_960_720.jpg");
         backgroundSprite = new Sprite(backgroundTexture);
+        Gdx.app.log("screenSize", String.format("x:%d y:%d",Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         backgroundSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         atlas = new TextureAtlas("assets/MarioAndEnemies.pack");
 
         cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
+        
         cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
         cam.update();
 
@@ -68,7 +69,7 @@ public class Dinorunner implements Screen {
         world.setContactListener(new WorldContactListener());
         
         goombas = new Array<>();
-        goombas.add(new Goomba(this, 64, 32));
+        goombas.add(new Goomba(this, 1000, 32));
     }
 
     @Override
@@ -82,6 +83,7 @@ public class Dinorunner implements Screen {
 
         for (Goomba goomba : goombas) {
             goomba.update(delta);
+            goomba.getX();
         }
     }
 
@@ -93,7 +95,7 @@ public class Dinorunner implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        batch.setProjectionMatrix(cam.combined);
+        game.batch.setProjectionMatrix(cam.combined);
         b2dr.render(world, cam.combined);
 
         game.batch.begin();
@@ -134,6 +136,7 @@ public class Dinorunner implements Screen {
 
     @Override
     public void dispose() {
+        game.dispose();
         world.dispose();
         backgroundSprite.getTexture().dispose();
         batch.dispose();
@@ -156,7 +159,7 @@ public class Dinorunner implements Screen {
             this.world = screen.getWorld();
 
             //floor
-            defineBorder(MyGdxGame.FLOOR_BIT, new Rectangle(0, 0, 2000, 1), 0, 0);
+            defineBorder(MyGdxGame.FLOOR_BIT, new Rectangle(0, 0, 3000, 1), 0, 0);
 
             //left world border
             defineBorder(MyGdxGame.WALL_BIT, new Rectangle(0, 0, 1, 1000), 0, 0);

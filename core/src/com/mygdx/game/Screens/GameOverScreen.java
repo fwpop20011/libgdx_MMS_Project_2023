@@ -62,6 +62,11 @@ public class GameOverScreen implements Screen {
                     game.setScreen(new FlappyBird((MyGdxGame) game));
                     dispose();
                     break;
+                //susjump
+                case 4:
+                    game.setScreen(new SusJump((MyGdxGame) game, 1));
+                    dispose();
+                    break;
                 
             }
         }
@@ -74,7 +79,7 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+
     }
 
     @Override

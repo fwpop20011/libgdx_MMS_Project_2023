@@ -37,7 +37,7 @@ public class Goomba extends Enemy {
         
         textures.clear();
         stateTimer = 0;
-        setBounds(0, 0, 40, 40);
+        setBounds(0, 0, 60, 60);
         setRegion(walkAnimation.getKeyFrame(10));
     }
 
@@ -51,7 +51,7 @@ public class Goomba extends Enemy {
             setRegion(new TextureRegion(screen.getAtlas().findRegion("goomba").getTexture(), 227 + 32 , 9, 16, 16));
         } else if(!isDead){
             setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
-            setRegion(((TextureRegion) walkAnimation.getKeyFrame(stateTimer, true)));
+            setRegion(walkAnimation.getKeyFrame(stateTimer, true));
         } else if(isDead && isDestroyed && (disapear)){
             setRegion(new TextureRegion(screen.getAtlas().findRegion("goomba").getTexture(), 227 + 100 , 9, 16, 16));
         }
@@ -73,7 +73,7 @@ public class Goomba extends Enemy {
 
         FixtureDef fDef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(20);
+        shape.setRadius(30);
         fDef.filter.categoryBits = MyGdxGame.ENEMY_BIT;
         //what can the goomba collid with;
         fDef.filter.maskBits = MyGdxGame.FLOOR_BIT;
@@ -106,7 +106,6 @@ public class Goomba extends Enemy {
             body.applyLinearImpulse(new Vector2(1f * MyGdxGame.PPM, 0), body.getWorldCenter(), true);
         }
     }
-    
 
     @Override
     public void hitOnHead() {

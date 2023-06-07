@@ -18,14 +18,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Scenes.Hud;
-import com.mygdx.game.Sprites.Goomba;
-import com.mygdx.game.Sprites.Player;
 import com.mygdx.game.Sprites.SusJump.Jumper;
 import com.mygdx.game.Sprites.SusJump.Tentacle;
-import com.mygdx.tools.B2WorldCreator;
-import com.mygdx.tools.KeyGen;
 import com.mygdx.tools.MusicLoader;
-import com.mygdx.tools.WorldContactListener;
 import com.mygdx.tools.SusJump.SusContactListener;
 import com.mygdx.tools.SusJump.SusWorldCreator;
 
@@ -244,7 +239,7 @@ public class SusJump implements Screen{
     public void NextLevel() {
         // Game overScreen
         if (player.isPlayerDead()) {
-            game.setScreen(new GameOverScreen(game, 0));
+            game.setScreen(new GameOverScreen(game, 4));
             dispose();
         }
 
