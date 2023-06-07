@@ -76,7 +76,7 @@ public class Hud implements Disposable {
         scoreLabel.setText(String.format("%06d", score));
     }
 
-    public void reName(String worldName, String levelName, String PlayerName){
+    public void reName(String worldName, String levelName, String playerName){
         worldLabel.setText(worldName);
         levLabel.setText(levelName);
         playerLabel.setText(playerName);
