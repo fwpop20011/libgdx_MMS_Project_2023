@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -16,12 +17,16 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.Sprites.Dinorunner.Runner;
 import com.mygdx.tools.MusicLoader;
 import com.mygdx.tools.WorldContactListener;
 
 public class Dinorunner implements Screen {
     Game game;
 
+    //textures
+    private TextureAtlas atlas;
     public static Sprite backgroundSprite;
 
     SpriteBatch batch;
@@ -32,6 +37,9 @@ public class Dinorunner implements Screen {
     private Box2DDebugRenderer b2dr;
     private World world;
 
+    //Sprites
+    Runner runner;
+
     // Music
     MusicLoader musicLoader;
 
@@ -41,15 +49,18 @@ public class Dinorunner implements Screen {
         backgroundSprite = new Sprite(backgroundTexture);
         backgroundSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
+        atlas = new TextureAtlas("assets/MarioAndEnemies.pack");
+
         cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
         cam.update();
 
-        world = new World(new Vector2(0, -7), true);
+        world = new World(new Vector2(0, -30), true);
         b2dr = new Box2DDebugRenderer();
-
+        new WorldGen(this);
         batch = new SpriteBatch();
+        runner = new Runner(this);
 
         world.setContactListener(new WorldContactListener());
         
@@ -60,8 +71,15 @@ public class Dinorunner implements Screen {
 
     }
 
+    private void update(float delta){
+        world.step(1 / 60f, 6, 2);
+        runner.update(delta);
+    }
+
     @Override
     public void render(float delta) {
+        update(delta);
+
         // clear screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -71,6 +89,7 @@ public class Dinorunner implements Screen {
 
         batch.begin();
         backgroundSprite.draw(batch);
+        runner.draw(batch);
         batch.end();
 
         // calculates the physics every 60 seconds
@@ -103,31 +122,53 @@ public class Dinorunner implements Screen {
         world.dispose();
         backgroundSprite.getTexture().dispose();
         batch.dispose();
+        atlas.dispose();
+        runner.dispose();
     }
 
     public World getWorld() {
         return world;
     }
 
+    public TextureAtlas getAtlas(){
+        return atlas;
+    }
+
     public class WorldGen {
+        World world;
 
         protected WorldGen(Dinorunner screen){
-            World world = screen.getWorld();
+            this.world = screen.getWorld();
 
+            //floor
+            defineBorder(MyGdxGame.FLOOR_BIT, new Rectangle(0, 0, 2000, 1), 0, 0);
+
+            //left world border
+            defineBorder(MyGdxGame.WALL_BIT, new Rectangle(0, 0, 1, 1000), 0, 0);
+
+            //right world border
+            defineBorder(MyGdxGame.WALL_BIT, new Rectangle(Gdx.graphics.getWidth() -100, 0, 1, 1000), 0 ,1000);
+        }
+
+        private void defineBorder(short bit, Rectangle rectangle, int x, int y){
             BodyDef bDef = new BodyDef();
             PolygonShape shape = new PolygonShape();
             FixtureDef fDef = new FixtureDef();
             Body body;
-        
-            Rectangle rect = new Rectangle(10, 10, 1000, 1000);
+
+            Rectangle rect = rectangle;
 
             bDef.type = BodyDef.BodyType.StaticBody;
-            bDef.position.set(0,0);
             bDef.position.set(rect.getX() + (rect.getWidth()) / 2, rect.getY() + (rect.getHeight() / 2));
-
+            
             body = world.createBody(bDef);
-
             shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
+
+            //id of the player for the contact listener
+            fDef.filter.categoryBits = bit;
+            // what can the player collid with;
+            fDef.filter.maskBits = MyGdxGame.PLAYER_BIT;
+
             fDef.shape = shape;
             body.createFixture(fDef);
         }

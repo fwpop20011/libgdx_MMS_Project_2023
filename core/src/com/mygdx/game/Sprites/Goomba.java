@@ -13,13 +13,13 @@ import com.mygdx.game.Screens.PlayScreen;
 
 public class Goomba extends Enemy {
     private float stateTimer;
-    private Animation walkAnimation;
+    private Animation<TextureRegion> walkAnimation;
     private boolean isDead;
     private boolean isDestroyed;
     private boolean disapear;
     private float deathTime;
     private boolean moveLeft;
-    Array<TextureRegion> textures = new Array<TextureRegion>();
+    Array<TextureRegion> textures = new Array<>();
 
     public Goomba(PlayScreen screen, float x, float y) {
         super(screen, x, y);

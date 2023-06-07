@@ -123,7 +123,7 @@ public class FlappyBird implements Screen {
             if (pipeTop.x + pipeTop.width <= 0) {
                 pipes.removeValue(pipe, true);
                 score++;
-                pointMusic.play();
+                pointMusic.play(); 
             }
 
             // Player collided with pipe

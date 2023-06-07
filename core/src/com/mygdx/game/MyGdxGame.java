@@ -16,6 +16,7 @@ public class MyGdxGame extends Game {
 	public static final int V_Width = 400;
 	public static final int V_Height = 208;
 
+	//for mario game
 	public static final short DEFAULT = 1;
 	public static final short PLAYER_BIT = 2;
 	public static final short BRICK_BIT = 4;
@@ -25,6 +26,11 @@ public class MyGdxGame extends Game {
 	public static final short ENEMY_BIT = 64;
 	public static final short ENEMY_HEAD_BIT = 128;
 	public static final short PIPE_TOP_BIT = 256;
+
+	//for dino runner
+	public static final short FLOOR_BIT = 1;
+	//public static final short PLAYER_BIT = 2;
+	public static final short WALL_BIT = 4;
 
 	//Pixels per meter
 	public static final float PPM = 10;

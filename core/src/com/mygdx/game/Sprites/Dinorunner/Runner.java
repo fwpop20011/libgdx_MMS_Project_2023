@@ -1,4 +1,4 @@
-package com.mygdx.game.Sprites;
+package com.mygdx.game.Sprites.Dinorunner;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -14,41 +14,31 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.Screens.PlayScreen;
+import com.mygdx.game.Screens.Dinorunner;
+import com.mygdx.game.Sprites.Player.State;
 
-public class Player extends Sprite {
-    public enum State {
-        FALLING, JUMPING, STANDING, RUNNING
-    }
-
+public class Runner extends Sprite {
     public State curState;
     public State prevState;
     public World world;
     public Body body;
-    private TextureRegion playerStand;
     private Animation<TextureRegion> playerRun;
     private Animation<TextureRegion> playerJump;
+    private TextureRegion playerStand;
     private float stateTimer;
-    private boolean runningRight;
     private boolean isDead;
-    private boolean nextLevel;
-    private boolean onTopOfPipe;
-    private int onTopOfPipeKey;
 
-    public Player(PlayScreen screen) {
+    public Runner(Dinorunner screen){
         super(screen.getAtlas().findRegion("little_mario"));
         this.world = screen.getWorld();
 
         curState = State.STANDING;
         prevState = State.STANDING;
-        onTopOfPipeKey = 0;
         stateTimer = 0;
-        runningRight = true;
-        onTopOfPipe = false;
-        nextLevel = false;
+
+        isDead = false;
 
         Array<TextureRegion> textures = new Array<>();
-        isDead = false;
 
         // load the running animation from the .pack
         for (int i = 1; i < 4; i++) {
@@ -64,11 +54,12 @@ public class Player extends Sprite {
         playerJump = new Animation<>(0.3f, textures);
         textures.clear();
 
-        definePlayer();
+        defineRunner();
         playerStand = new TextureRegion(getTexture(), 0, 11, 16, 16);
-        setBounds(0, 0, 16, 16);
+        setBounds(0, 0, 100, 100);
         setRegion(playerStand);
     }
+
 
     public void update(float deltaT) {
         deviceInput(deltaT);
@@ -96,14 +87,6 @@ public class Player extends Sprite {
                 break;
         }
 
-        if ((body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
-            region.flip(true, false);
-            runningRight = false;
-        } else if ((body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()) {
-            region.flip(true, false);
-            runningRight = true;
-        }
-
         // does the current state equal the previous state if yes then the stateTimer +
         // the delta time else set to 0
         stateTimer = curState == prevState ? stateTimer + deltaT : 0;
@@ -112,6 +95,10 @@ public class Player extends Sprite {
         return region;
     }
 
+    /**
+     * checks the velocity of the player, which is in turn used to calculate the current state of movement
+     * @return the movement state the character is currently in
+     */
     private State getState() {
         if (body.getLinearVelocity().y > 0 || (body.getLinearVelocity().y < 0 && prevState == State.JUMPING)) {
             return State.JUMPING;
@@ -124,7 +111,8 @@ public class Player extends Sprite {
         }
     }
 
-    public void definePlayer() {
+    /**defines the body of the character sprite in the world */
+    public void defineRunner() {
         BodyDef bDef = new BodyDef();
         bDef.position.set(32, 32);
         bDef.type = BodyDef.BodyType.DynamicBody;
@@ -132,16 +120,12 @@ public class Player extends Sprite {
 
         FixtureDef fDef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(5);
+        shape.setRadius(50);
+        //id of the player for the contact listener
         fDef.filter.categoryBits = MyGdxGame.PLAYER_BIT;
         // what can the player collid with;
-        fDef.filter.maskBits = MyGdxGame.DEFAULT |
-                MyGdxGame.COIN_BIT |
-                MyGdxGame.BRICK_BIT |
-                MyGdxGame.PIPE_BIT |
-                MyGdxGame.ENEMY_BIT |
-                MyGdxGame.ENEMY_HEAD_BIT |
-                MyGdxGame.PIPE_TOP_BIT;
+        fDef.filter.maskBits = MyGdxGame.FLOOR_BIT | 
+        MyGdxGame.WALL_BIT;
 
         fDef.shape = shape;
         body.createFixture(fDef).setUserData(this);
@@ -154,53 +138,35 @@ public class Player extends Sprite {
         body.createFixture(fDef).setUserData("head");
     }
 
+    /** read the inputs and translate them to player movement*/
     public void deviceInput(float deltaT) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && body.getLinearVelocity().y == 0) {
             body.applyLinearImpulse(new Vector2(0, 10 * MyGdxGame.PPM), body.getWorldCenter(), true);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && body.getLinearVelocity().x <= 5 * MyGdxGame.PPM) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && body.getLinearVelocity().x <= 40 * MyGdxGame.PPM) {
             body.applyLinearImpulse(new Vector2(0.2f * MyGdxGame.PPM, 0), body.getWorldCenter(), true);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && body.getLinearVelocity().x >= -5 * MyGdxGame.PPM) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && body.getLinearVelocity().x >= -40 * MyGdxGame.PPM) {
             body.applyLinearImpulse(new Vector2(-0.2f * MyGdxGame.PPM, 0), body.getWorldCenter(), true);
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN) && onTopOfPipe && onTopOfPipeKey > 0){
-            nextLevel = true;
         }
         if(body.getPosition().y < 0){
             playerDeath();
         }
     }
 
-    /**
-     * sets the player sprite to dead
-     */
-    public void playerDeath() {
+    /**set the character sprite to dead */
+    private void playerDeath(){
         isDead = true;
     }
 
     /**
      * 
-     * @return true if the player is dead and false if not
+     * @return
      */
     public boolean isPlayerDead() {
         return isDead;
-    }
-
-    public void onTopOfPipe(int PipeKey){
-        onTopOfPipeKey = PipeKey;
-        Gdx.app.log("Player", "on pipe: " + onTopOfPipeKey);
-        onTopOfPipe = !onTopOfPipe;
-    }
-
-    public boolean nextLevel(){
-        return nextLevel;
-    }
-
-    public int getPlayerOnPipeKey(){
-        return onTopOfPipeKey;
     }
 
     public void dispose(){
