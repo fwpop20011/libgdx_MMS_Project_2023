@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -19,14 +20,21 @@ import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Scenes.Hud;
 import com.mygdx.game.Sprites.Goomba;
 import com.mygdx.game.Sprites.Player;
+import com.mygdx.game.Sprites.SusJump.Jumper;
+import com.mygdx.game.Sprites.SusJump.Tentacle;
 import com.mygdx.tools.B2WorldCreator;
 import com.mygdx.tools.KeyGen;
 import com.mygdx.tools.MusicLoader;
 import com.mygdx.tools.WorldContactListener;
+import com.mygdx.tools.SusJump.SusContactListener;
+import com.mygdx.tools.SusJump.SusWorldCreator;
 
-public class PlayScreen implements Screen {
+public class SusJump implements Screen{
+
     private MyGdxGame game;
     private TextureAtlas atlas;
+    private Texture textureRight;
+    private Texture textureLeft;
 
     private OrthographicCamera gameCam;
     private Viewport gamePort;
@@ -42,16 +50,22 @@ public class PlayScreen implements Screen {
     private World world;
 
     // sprites
-    private Player player;
-    Array<Goomba> goombas;
+    private Jumper player;
+    Array<Tentacle> tentacles;
 
     // music
     MusicLoader musicLoader;
 
-    public PlayScreen(MyGdxGame game) {
+    //Level-Key
+    private int level;
+
+    public SusJump(MyGdxGame game, int level){
         this.game = game;
 
-        atlas = new TextureAtlas("assets/MarioAndEnemies.pack");
+        //TODO add
+        textureRight = new Texture("assets/worlds/SusJump/GFX/sus_player.png");
+        textureLeft = new Texture("assets/worlds/SusJump/GFX/sus_playerF.png");
+        atlas = new TextureAtlas("assets/worlds/SusJump/GFX/tentacle.pack");
         // camera which follows the player.
         gameCam = new OrthographicCamera();
 
@@ -61,43 +75,75 @@ public class PlayScreen implements Screen {
 
         // creates our game Hud
         hud = new Hud(game.batch);
+        hud.reName("SuS-Jump", null, "Score");
 
         // load the map created with tiled
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("assets/worlds/marioRecreate/1/level1.tmx");
+        //TODO add
+
+        loadMap(level);
         renderer = new OrthogonalTiledMapRenderer(map);
 
         // set the game camera to be centered at the start of the level
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
-        world = new World(new Vector2(0, -7 * MyGdxGame.PPM), true);
+        world = new World(new Vector2(0, -5 * MyGdxGame.PPM), true);
         b2dr = new Box2DDebugRenderer();
 
         // generates a new map with objects
-        B2WorldCreator b2WorldCreator = new B2WorldCreator(this);
-        goombas = b2WorldCreator.getGoombas();
+        //TODO: add own WorldCreator
+        SusWorldCreator susWorldCreator = new SusWorldCreator(this);
+        tentacles = susWorldCreator.getTentacles();
 
         // create the sprite in the game world
-        player = new Player(this);
-        goombas.add(new Goomba(this, 64, 32));
+        player = new Jumper(this);
+        //tentacles.add(new Tentacle(this, 64, 32));
 
-        world.setContactListener(new WorldContactListener());
+        world.setContactListener(new SusContactListener());
 
         // world music
+        //TODO: music
         musicLoader = new MusicLoader("assets/audio/music/mario_music.ogg");
         musicLoader.setVolume(0);
         musicLoader.playMusic(1);
     }
 
+    /**
+     * Loads the assets of the level with the designated level key
+     * @param level The level key
+     */
+    private void loadMap(int level) {
+        switch(level){
+            case 0:
+            case 1:
+            map = mapLoader.load("assets/worlds/susJump/levels/level1.tmx");
+            break;
+            case 2:
+            map = mapLoader.load("assets/worlds/susJump/levels/level2.tmx");
+            break;
+            case 3:
+            map = mapLoader.load("assets/worlds/susJump/levels/level3.tmx");
+            break;
+            default:
+            map = mapLoader.load("assets/worlds/susJump/levels/level1.tmx");
+            break;
+        }
+    }
+
+    public int getLevel(){
+        return this.level;
+    }
+
     public void update(float deltaT) {
         gameCam.position.x = player.body.getPosition().x;
+        gameCam.position.y = player.body.getPosition().y;
 
         // calculates the physics every 60 seconds
         world.step(1 / 60f, 6, 2);
 
         player.update(deltaT);
-        for (Goomba goomba : goombas) {
-            goomba.update(deltaT);
+        for (Tentacle tentacle : tentacles) {
+            tentacle.update(deltaT);
         }
 
         gameCam.update();
@@ -105,21 +151,10 @@ public class PlayScreen implements Screen {
         renderer.setView(gameCam);
     }
 
-    public TextureAtlas getAtlas() {
-        return atlas;
-    }
-
-    public TiledMap getMap() {
-        return map;
-    }
-
-    public World getWorld() {
-        return world;
-    }
 
     @Override
     public void show() {
-        
+        //Empty
     }
 
     @Override
@@ -140,8 +175,8 @@ public class PlayScreen implements Screen {
         game.batch.begin();
         player.draw(game.batch);
 
-        for (Goomba goomba : goombas) {
-            goomba.draw(game.batch);
+        for (Tentacle tentacle : tentacles) {
+            tentacle.draw(game.batch);
         }
 
         game.batch.end();
@@ -159,17 +194,17 @@ public class PlayScreen implements Screen {
 
     @Override
     public void pause() {
-
+        //Empty
     }
 
     @Override
     public void resume() {
-
+        //Empty
     }
 
     @Override
     public void hide() {
-
+        //Empty
     }
 
     @Override
@@ -179,7 +214,31 @@ public class PlayScreen implements Screen {
         world.dispose();
         b2dr.dispose();
         hud.dispose();
-        KeyGen.reset(-4);
+    }
+
+    
+    public Texture getTextureRight() {
+        return textureRight;
+    }
+
+    public Texture getTextureLeft() {
+        return textureLeft;
+    }
+
+    public TextureAtlas getAtlas(){
+        return atlas;
+    }
+
+    public TiledMap getMap() {
+        return map;
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public Hud getHud() {
+        return hud;
     }
 
     public void NextLevel() {
@@ -189,34 +248,21 @@ public class PlayScreen implements Screen {
             dispose();
         }
 
-        // other minigames
+        // other levels
         if (player.nextLevel()) {
-            switch (player.getPlayerOnPipeKey()) {
-                case 1:
-                    Gdx.app.log("nextLevel", "Dinorunner");
+            Double randomNum = Math.random();
+            if(randomNum < 0.1){
+                Gdx.app.log("nextLevel", "SusJumpLevel2");
                     musicLoader.playMusic(0);
-                    game.setScreen(new Dinorunner(game));
+                    game.setScreen(new SusJump(game, 2));
                     dispose();
-                    break;
-                case 2:
-                    Gdx.app.log("nextLevel", "BouncingBall");
+            } else{
+                Gdx.app.log("nextLevel", "SusJumpLevel3");
                     musicLoader.playMusic(0);
-                    game.setScreen(new BouncingBall(game));
+                    game.setScreen(new SusJump(game, 3));
                     dispose();
-                    break;
-                case 3:
-                    Gdx.app.log("nextLevel", "FlappyBirds");
-                    musicLoader.playMusic(0);
-                    game.setScreen(new FlappyBird(game));
-                    dispose();
-                    break;
-                case 4:
-                    Gdx.app.log("nextLevel", "SusJump");
-                    musicLoader.playMusic(0);
-                    game.setScreen(new SusJump(game, 1));
-                    dispose();
-                    break;
             }
+             
         }
     }
 }
