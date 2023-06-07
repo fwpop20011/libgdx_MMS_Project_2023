@@ -42,6 +42,9 @@ public class Hud implements Disposable {
     public Hud(SpriteBatch sb){
         viewport = new FitViewport(MyGdxGame.V_Width, MyGdxGame.V_Height, new OrthographicCamera());
         stage = new Stage(viewport, sb);
+        wTimer = 0;
+        timeCount = 0;
+        score = 0;
         createHud(stage);
     }
 

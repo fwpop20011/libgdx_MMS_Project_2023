@@ -17,13 +17,15 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.Sprites.Dinorunner.Goomba;
 import com.mygdx.game.Sprites.Dinorunner.Runner;
 import com.mygdx.tools.MusicLoader;
 import com.mygdx.tools.WorldContactListener;
 
 public class Dinorunner implements Screen {
-    Game game;
+    MyGdxGame game;
 
     //textures
     private TextureAtlas atlas;
@@ -39,11 +41,12 @@ public class Dinorunner implements Screen {
 
     //Sprites
     Runner runner;
+    Array<Goomba> goombas;
 
     // Music
     MusicLoader musicLoader;
 
-    public Dinorunner(Game game) {
+    public Dinorunner(MyGdxGame game) {
         this.game = game;
         Texture backgroundTexture = new Texture("assets/worlds/Dinorunner/illustration-4908159_960_720.jpg");
         backgroundSprite = new Sprite(backgroundTexture);
@@ -64,6 +67,8 @@ public class Dinorunner implements Screen {
 
         world.setContactListener(new WorldContactListener());
         
+        goombas = new Array<>();
+        goombas.add(new Goomba(this, 64, 32));
     }
 
     @Override
@@ -74,6 +79,10 @@ public class Dinorunner implements Screen {
     private void update(float delta){
         world.step(1 / 60f, 6, 2);
         runner.update(delta);
+
+        for (Goomba goomba : goombas) {
+            goomba.update(delta);
+        }
     }
 
     @Override
@@ -87,14 +96,20 @@ public class Dinorunner implements Screen {
         batch.setProjectionMatrix(cam.combined);
         b2dr.render(world, cam.combined);
 
-        batch.begin();
-        backgroundSprite.draw(batch);
-        runner.draw(batch);
-        batch.end();
+        game.batch.begin();
+
+        backgroundSprite.draw(game.batch);
+
+        runner.draw(game.batch);
+
+        for(Goomba goomba : goombas){
+            goomba.draw(game.batch);
+        }
+
+        game.batch.end();
 
         // calculates the physics every 60 seconds
         world.step(1 / 60f, 6, 2);
-
     }
 
     @Override
@@ -147,7 +162,7 @@ public class Dinorunner implements Screen {
             defineBorder(MyGdxGame.WALL_BIT, new Rectangle(0, 0, 1, 1000), 0, 0);
 
             //right world border
-            defineBorder(MyGdxGame.WALL_BIT, new Rectangle(Gdx.graphics.getWidth() -100, 0, 1, 1000), 0 ,1000);
+            defineBorder(MyGdxGame.WALL_BIT, new Rectangle(Gdx.graphics.getWidth(), 0, 1, 1000), 0 ,1000);
         }
 
         private void defineBorder(short bit, Rectangle rectangle, int x, int y){
@@ -167,7 +182,7 @@ public class Dinorunner implements Screen {
             //id of the player for the contact listener
             fDef.filter.categoryBits = bit;
             // what can the player collid with;
-            fDef.filter.maskBits = MyGdxGame.PLAYER_BIT;
+            fDef.filter.maskBits = MyGdxGame.PLAYER_BIT | MyGdxGame.ENEMY_BIT;
 
             fDef.shape = shape;
             body.createFixture(fDef);
