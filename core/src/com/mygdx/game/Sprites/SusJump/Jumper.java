@@ -193,7 +193,7 @@ public class Jumper extends Sprite {
         onPortal = true;
         Gdx.app.log("Player", "on portal");
        }else{
-        onPortal = true;
+        onPortal = false;
         Gdx.app.log("Player", "off portal");
        }
     }
