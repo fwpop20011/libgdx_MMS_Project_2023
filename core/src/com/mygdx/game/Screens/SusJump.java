@@ -82,7 +82,7 @@ public class SusJump implements Screen{
         // set the game camera to be centered at the start of the level
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
-        world = new World(new Vector2(0, -5 * MyGdxGame.PPM), true);
+        world = new World(new Vector2(0, -6 * MyGdxGame.PPM), true);
         b2dr = new Box2DDebugRenderer();
 
         // generates a new map with objects
