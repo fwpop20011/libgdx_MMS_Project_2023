@@ -69,7 +69,6 @@ public class WorldContactListener implements ContactListener {
             case MyGdxGame.ENEMY_BIT | MyGdxGame.ENEMY_BIT:
                 if(fixA.getFilterData().categoryBits == MyGdxGame.ENEMY_BIT){
                     ((Enemy) fixA.getUserData()).hitObject();
-                } else if (fixB.getFilterData().categoryBits == MyGdxGame.ENEMY_BIT) {
                     ((Enemy) fixB.getUserData()).hitObject();
                 }
         }

@@ -33,7 +33,7 @@ public class Goomba extends Enemy {
             textures.add(new TextureRegion(screen.getAtlas().findRegion("goomba").getTexture(), 227 + i *16 , 9, 16, 16));
         }
 
-        walkAnimation = new Animation(0.3f, textures);
+        walkAnimation = new Animation<>(0.3f, textures);
         
         textures.clear();
         stateTimer = 0;
