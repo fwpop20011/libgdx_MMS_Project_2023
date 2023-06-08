@@ -54,7 +54,14 @@ public class SusJump implements Screen{
     //Level-Key
     private int level;
 
+    public SusJump(MyGdxGame game){
+        this(game, 1, 0);
+    }
     public SusJump(MyGdxGame game, int level){
+        this(game, level, 0);
+    }
+
+    public SusJump(MyGdxGame game, int level, int score){
         this.game = game;
 
         //TODO add
@@ -101,6 +108,7 @@ public class SusJump implements Screen{
         musicLoader = new MusicLoader("assets/audio/music/mario_music.ogg");
         musicLoader.setVolume(0);
         musicLoader.playMusic(1);
+        this.getHud().addPoint(score);
     }
 
     /**
@@ -246,18 +254,25 @@ public class SusJump implements Screen{
         // other levels
         if (player.nextLevel()) {
             Double randomNum = Math.random();
+            Gdx.app.log("nextLevel", "Random Number:" + randomNum);
             if(randomNum < 0.5){
                 Gdx.app.log("nextLevel", "SusJumpLevel2");
                     musicLoader.playMusic(0);
-                    game.setScreen(new SusJump(game, 2));
+                    Gdx.app.log("score", "Went to next level with points:" + getPoints());
+                    game.setScreen(new SusJump(game, 3, getPoints()));
                     dispose();
             } else{
                 Gdx.app.log("nextLevel", "SusJumpLevel3");
                     musicLoader.playMusic(0);
-                    game.setScreen(new SusJump(game, 2));
+                    Gdx.app.log("score", "Went to next level with points:" + getPoints());
+                    game.setScreen(new SusJump(game, 3, getPoints()));
                     dispose();
             }
              
         }
+    }
+
+    public int getPoints(){
+        return this.getHud().getScore();
     }
 }

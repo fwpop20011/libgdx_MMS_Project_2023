@@ -56,7 +56,7 @@ public class SusWorldCreator {
         // create breakable platform
         for (MapObject o : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) o).getRectangle();
-            Gdx.app.log(null, String.format("%f, %f", rect.getX(), rect.getY()));
+            //Gdx.app.log(null, String.format("%f, %f", rect.getX(), rect.getY()));
             new BreakablePlatform(susJump, rect);
         }
 

@@ -214,7 +214,7 @@ public class PlayScreen implements Screen {
                 case 4:
                     Gdx.app.log("nextLevel", "SusJump");
                     musicLoader.playMusic(0);
-                    game.setScreen(new SusJump(game, 1));
+                    game.setScreen(new SusJump(game));
                     dispose();
                     break;
             }

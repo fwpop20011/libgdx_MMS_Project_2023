@@ -86,4 +86,8 @@ public class Hud implements Disposable {
     public void dispose() {
         stage.dispose();
     }
+
+    public int getScore(){
+        return this.score;
+    }
 }
