@@ -22,6 +22,7 @@ import com.mygdx.game.Scenes.Hud;
 import com.mygdx.game.Sprites.PlayerKing;
 
 import com.mygdx.tools.KeyGen;
+import com.mygdx.tools.MusicLoader;
 import com.mygdx.tools.JumpKing.JumpKingContactListener;
 import com.mygdx.tools.JumpKing.JumpKingWorldCreator;
 
@@ -49,7 +50,9 @@ public class ScreenCoed implements Screen {
 
     private boolean onFinish;
 
+    
 
+    private MusicLoader musicLoader;
 
     //private TileMap tileMaphelper;
 
@@ -79,8 +82,10 @@ public class ScreenCoed implements Screen {
 
         player = new PlayerKing(this);
         
-        
-        
+       
+        musicLoader = new MusicLoader("assets/audio/music/jumper.mp3");
+        musicLoader.setVolume(0);
+        musicLoader.playMusic(1);
         //this.batch = new SpriteBatch();
 
         //this.tileMaphelper = new TileMap();
