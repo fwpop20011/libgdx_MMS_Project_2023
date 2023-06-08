@@ -82,7 +82,7 @@ public class SusJump implements Screen{
         // set the game camera to be centered at the start of the level
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
-        world = new World(new Vector2(0, -6 * MyGdxGame.PPM), true);
+        world = new World(new Vector2(0, -5 * MyGdxGame.PPM), true);
         b2dr = new Box2DDebugRenderer();
 
         // generates a new map with objects
@@ -246,7 +246,7 @@ public class SusJump implements Screen{
         // other levels
         if (player.nextLevel()) {
             Double randomNum = Math.random();
-            if(randomNum < 0.1){
+            if(randomNum < 0.5){
                 Gdx.app.log("nextLevel", "SusJumpLevel2");
                     musicLoader.playMusic(0);
                     game.setScreen(new SusJump(game, 2));
@@ -254,7 +254,7 @@ public class SusJump implements Screen{
             } else{
                 Gdx.app.log("nextLevel", "SusJumpLevel3");
                     musicLoader.playMusic(0);
-                    game.setScreen(new SusJump(game, 3));
+                    game.setScreen(new SusJump(game, 2));
                     dispose();
             }
              

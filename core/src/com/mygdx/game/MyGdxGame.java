@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Screens.Dinorunner;
+import com.mygdx.game.Screens.SusJump;
 import com.mygdx.game.Screens.PlayScreen;
 
 public class MyGdxGame extends Game {

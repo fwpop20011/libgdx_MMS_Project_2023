@@ -154,14 +154,14 @@ public class Jumper extends Sprite {
 
     public void deviceInput(float deltaT) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && body.getLinearVelocity().y == 0) {
-            body.applyLinearImpulse(new Vector2(0, 10 * MyGdxGame.PPM), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(0, 20 * MyGdxGame.PPM), body.getWorldCenter(), true);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && body.getLinearVelocity().x <= 50 * MyGdxGame.PPM) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && body.getLinearVelocity().x <= 20 * MyGdxGame.PPM) {
             body.applyLinearImpulse(new Vector2(0.2f * MyGdxGame.PPM, 0), body.getWorldCenter(), true);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && body.getLinearVelocity().x >= -50 * MyGdxGame.PPM) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && body.getLinearVelocity().x >= -20 * MyGdxGame.PPM) {
             body.applyLinearImpulse(new Vector2(-0.2f * MyGdxGame.PPM, 0), body.getWorldCenter(), true);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN) && onPortal){
