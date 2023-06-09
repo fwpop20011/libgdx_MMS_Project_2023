@@ -47,7 +47,7 @@ public class FlappyBird implements Screen {
         jumpMusic = MyGdxGame.assetManager.get("assets/audio/sounds/flappybird/Jump.mp3", Sound.class);
         collideMusic = MyGdxGame.assetManager.get("assets/audio/sounds/flappybird/collide.mp3", Sound.class);
 
-        backgroundMusic.setVolume(10);
+        backgroundMusic.setVolume(8);
         backgroundMusic.setLooping(true);
         backgroundMusic.play();
     }
@@ -116,7 +116,7 @@ public class FlappyBird implements Screen {
         // Input from player
         if (Gdx.input.justTouched()) {
             bird.jump();
-            jumpMusic.play();
+            jumpMusic.play(0.2f);
         }
 
         // Update pipes
@@ -150,7 +150,7 @@ public class FlappyBird implements Screen {
         //Player collided with ground
         if (bird.getPosition().y <= 0) {
             isGameOver = true;
-            collideMusic.play();
+            collideMusic.play(0.3f);
             backgroundMusic.stop();
         }
     }

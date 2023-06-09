@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Screens.BouncingBall;
+import com.mygdx.game.Screens.FlappyBird;
 import com.mygdx.game.Screens.MarioScreen;
 
 public class MyGdxGame extends Game {
@@ -76,7 +77,7 @@ public class MyGdxGame extends Game {
 
 		assetManager.finishLoading();
 		
-		setScreen(new BouncingBall(this));
+		setScreen(new FlappyBird(this));
 	} 
 
 	@Override
