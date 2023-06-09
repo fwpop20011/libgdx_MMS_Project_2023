@@ -23,8 +23,8 @@ public class BouncingBall implements Screen {
 
         hud = new Hud(game.batch);
         hud.reName("BouncingBall", "", "Points");
-        ball = new Ball(5, 5, 5, 2, 2);
-        paddel = new Paddel(20, 5);
+        ball = new Ball(5, 30, 5, 2, 2);
+        paddel = new Paddel(30, 5);
         this.shape = new ShapeRenderer();
         resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
@@ -45,12 +45,23 @@ public class BouncingBall implements Screen {
             hud.addPoint(1);
         }
 
+        //if the ball hits the bottom of the screen lose 100 points
+        if(ball.hitBottom){
+            hud.addPoint(-100);
+            ball.hitBottom = false;
+        }
+
         paddel.update();
         paddel.draw(shape);
         shape.end();
 
         hud.updateTimeAdditive(delta);
         hud.stage.draw();
+
+        if(hud.getScore() < 0){
+            game.setScreen(new GameOverScreen(game, 2));
+            dispose();
+        }
     }
 
     @Override

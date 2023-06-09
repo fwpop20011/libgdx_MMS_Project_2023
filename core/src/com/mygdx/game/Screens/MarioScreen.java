@@ -131,7 +131,7 @@ public class MarioScreen implements Screen {
         renderer.render();
 
         // render Box2dDebugLines
-        b2dr.render(world, cam.combined);
+        //b2dr.render(world, cam.combined);
 
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();

@@ -30,7 +30,7 @@ public class Paddel {
         this.xSize = xSize;
         this.ySize = ySize;
         x = Gdx.graphics.getWidth() / 2;
-        y = 10;
+        y = 30;
         conSwitch = false;
     }
 

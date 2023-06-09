@@ -107,7 +107,7 @@ public class Runner extends Sprite {
         } else if (body.getLinearVelocity().x != 0) {
             return State.RUNNING;
         } else {
-            return State.STANDING;
+            return State.RUNNING;
         }
     }
 

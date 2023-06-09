@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.Scenes.Hud;
 
 public class Ball {
+    public boolean hitBottom;
     private Color color;
     private int x, y;
     private int size;
@@ -19,22 +20,26 @@ public class Ball {
         this.size = size;
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
+        hitBottom = false;
         this.color = new Color(Color.BLUE);
     }
 
     public void update() {
         x += xSpeed;
         y += ySpeed;
-        if (x < size || x > (Gdx.graphics.getWidth()-size)) {
+        if (x < size || x > (Gdx.graphics.getWidth() - size)) {
             xSpeed = -xSpeed;
         }
-        if (y < size || y > (Gdx.graphics.getHeight()- size)) {
+        if (y < size || y > (Gdx.graphics.getHeight() - size)) {
+            if (y < size) {
+                hitBottom = true;
+            }
             ySpeed = -ySpeed;
         }
     }
 
-    public boolean checkCollision(Paddel paddel){
-        if(collidesWith(paddel)){
+    public boolean checkCollision(Paddel paddel) {
+        if (collidesWith(paddel)) {
             this.color = Color.GREEN;
             ySpeed = -ySpeed;
             return true;
@@ -44,9 +49,9 @@ public class Ball {
         }
     }
 
-    private boolean collidesWith(Paddel paddel){
-        if(y - size <= (paddel.getY() + paddel.getYSize())){
-            if(x >= paddel.getX() && x <= x + paddel.getX()){
+    private boolean collidesWith(Paddel paddel) {
+        if (y - 35 <= paddel.getY() && y > 20) {
+            if (x >= paddel.getX() && x <= paddel.getX() + 30) {
                 return true;
             }
         }
@@ -59,7 +64,7 @@ public class Ball {
         shape.circle(x, y, size);
     }
 
-    private Color randColor(){
+    private Color randColor() {
         Random rand = new Random();
         float r = rand.nextFloat();
         float g = rand.nextFloat();
@@ -67,15 +72,19 @@ public class Ball {
         return new Color(r, g, b, 255);
     }
 
-    public void resize(int width, int height){
-        if(width > height){
-            size = height /40;
+    public void resize(int width, int height) {
+        if (width > height) {
+            size = height / 40;
         } else {
-            size = width /40;
+            size = width / 40;
         }
-        x = width/2;
-        y = height/2;
+        x = 300;
+        y = 400;
         xSpeed = width / 200;
         ySpeed = height / 200;
+    }
+
+    public boolean hitBottom() {
+        return hitBottom;
     }
 }

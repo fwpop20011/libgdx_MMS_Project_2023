@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Screens.BouncingBall;
 import com.mygdx.game.Screens.MarioScreen;
 
 public class MyGdxGame extends Game {
