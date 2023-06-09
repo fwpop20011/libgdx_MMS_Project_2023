@@ -11,13 +11,13 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Screens.ScreenCoed;
+import com.mygdx.game.Screens.JumpKing;
 import com.mygdx.game.Sprites.JumpKing.Block;
 import com.mygdx.game.Sprites.JumpKing.Finish;
 
 public class JumpKingWorldCreator {
 
-    public JumpKingWorldCreator(ScreenCoed screen) {
+    public JumpKingWorldCreator(JumpKing screen) {
         World world = screen.getWorld();
         TiledMap map = screen.getMap();
 

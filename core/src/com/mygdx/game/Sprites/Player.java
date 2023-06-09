@@ -156,7 +156,7 @@ public class Player extends Sprite {
 
     public void deviceInput(float deltaT) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && body.getLinearVelocity().y == 0) {
-            body.applyLinearImpulse(new Vector2(0, 10 * MyGdxGame.PPM), body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(0, 11 * MyGdxGame.PPM), body.getWorldCenter(), true);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && body.getLinearVelocity().x <= 5 * MyGdxGame.PPM) {

@@ -15,7 +15,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Screens.MarioScreen;
-import com.mygdx.game.Screens.ScreenCoed;
+import com.mygdx.game.Screens.JumpKing;
 
 public class PlayerKing extends Sprite {
     public enum State {
@@ -35,7 +35,7 @@ public class PlayerKing extends Sprite {
     private boolean nextLevel;
     private boolean onTopOfPipe;
 
-    public PlayerKing(ScreenCoed screen) {
+    public PlayerKing(JumpKing screen) {
         super(screen.getAtlas().findRegion("little_mario"));
         this.world = screen.getWorld();
 

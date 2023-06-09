@@ -25,7 +25,7 @@ import com.mygdx.tools.MusicLoader;
 import com.mygdx.tools.JumpKing.JumpKingContactListener;
 import com.mygdx.tools.JumpKing.JumpKingWorldCreator;
 
-public class ScreenCoed implements Screen {
+public class JumpKing implements Screen {
 
     private OrthographicCamera camera;
 
@@ -52,7 +52,7 @@ public class ScreenCoed implements Screen {
 
     // private TileMap tileMaphelper;
 
-    public ScreenCoed(MyGdxGame game) {
+    public JumpKing(MyGdxGame game) {
         this.game = game;
 
         atlas = new TextureAtlas("assets/MarioAndEnemies.pack");
@@ -105,6 +105,8 @@ public class ScreenCoed implements Screen {
         camera.update();
 
         orthogonalTiledMapRenderer.setView(camera);
+
+        NextLevel();
     }
 
     @Override
@@ -177,15 +179,9 @@ public class ScreenCoed implements Screen {
     }
 
     public void NextLevel() {
-        // Game overScreen
-        if (player.isPlayerDead()) {
-            game.setScreen(new GameOverScreen(game, 0));
-            dispose();
-        }
-
-        if (player.nextLevel()) {
-            game.setScreen(new GameOverScreen(game, 0));
-            dispose();
+        // if the escape key is pressed the game will return to the mario world
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+            game.setScreen(new MarioScreen(game));
         }
     }
 }

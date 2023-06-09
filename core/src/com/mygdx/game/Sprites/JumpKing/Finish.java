@@ -6,11 +6,11 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.Screens.ScreenCoed;
+import com.mygdx.game.Screens.JumpKing;
 
 public class Finish extends Jumpable {
 
-    public Finish(ScreenCoed screen, Rectangle bounds) {
+    public Finish(JumpKing screen, Rectangle bounds) {
         super(screen, bounds);
         setCategoryFilter(MyGdxGame.PIPE_BIT);
         fixture.setUserData(this);

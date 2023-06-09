@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.Screens.ScreenCoed;
+import com.mygdx.game.Screens.JumpKing;
 
 public abstract class Jumpable {
     protected World world;
@@ -23,7 +23,7 @@ public abstract class Jumpable {
 
     protected Fixture fixture;
 
-    public Jumpable(ScreenCoed screen, Rectangle bounds) {
+    public Jumpable(JumpKing screen, Rectangle bounds) {
         this.world = screen.getWorld();
         this.map = screen.getMap();
         this.bounds = bounds;

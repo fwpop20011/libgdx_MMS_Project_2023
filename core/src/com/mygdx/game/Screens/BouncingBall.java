@@ -22,7 +22,7 @@ public class BouncingBall implements Screen {
         this.game = game;
 
         hud = new Hud(game.batch);
-        hud.reName("BouncingBall", "2-0", "Steve");
+        hud.reName("BouncingBall", "", "Points");
         ball = new Ball(5, 5, 5, 2, 2);
         paddel = new Paddel(20, 5);
         this.shape = new ShapeRenderer();
@@ -49,6 +49,7 @@ public class BouncingBall implements Screen {
         paddel.draw(shape);
         shape.end();
 
+        hud.updateTimeAdditive(delta);
         hud.stage.draw();
     }
 

@@ -80,13 +80,13 @@ public class MarioScreen implements Screen {
 
         // create the sprite in the game world
         player = new Player(this);
-        goombas.add(new Goomba(this, 64, 32));
+        goombas.add(new Goomba(this, 100, 32));
 
         world.setContactListener(new WorldContactListener());
 
         // world music
         musicLoader = new MusicLoader("assets/audio/music/mario_music.ogg");
-        musicLoader.setVolume(0);
+        musicLoader.setVolume(20);
         musicLoader.playMusic(1);
     }
 
@@ -218,7 +218,7 @@ public class MarioScreen implements Screen {
                     break;
                 case 5:
                     Gdx.app.log("nextLevel", "JumpKing");
-                    game.setScreen(new ScreenCoed(game));
+                    game.setScreen(new JumpKing(game));
                     dispose();
                     break;
             }
