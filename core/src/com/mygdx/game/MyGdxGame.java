@@ -9,8 +9,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Screens.BouncingBall;
 import com.mygdx.game.Screens.MarioScreen;
-import com.mygdx.game.Screens.SusJump;
-import com.mygdx.game.Screens.JumpKing;
 
 public class MyGdxGame extends Game {
 	public SpriteBatch batch;
@@ -78,7 +76,7 @@ public class MyGdxGame extends Game {
 
 		assetManager.finishLoading();
 		
-		setScreen(new MarioScreen(this));
+		setScreen(new BouncingBall(this));
 	} 
 
 	@Override

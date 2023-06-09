@@ -39,9 +39,17 @@ public class Paddel {
             x = Gdx.input.getX(); // x pos of mouse pointer
         } else {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-                x = x + 10;
+                if(x>= Gdx.graphics.getWidth() - xSize){
+                    x = Gdx.graphics.getWidth() - xSize;
+                } else {
+                    x = x + 10;
+                }
             } else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-                x = x - 10;
+                if(x <= 0){
+                    x = 0;
+                } else {
+                     x = x - 10;
+                }
             } 
         }
 

@@ -86,6 +86,7 @@ public class Dinorunner implements Screen {
         birds.add(new Bird(this, 1200, 8));
         goombas.add(new Goomba(this, 800, 32));
         turtles.add(new Turtle(this, 400, 8, 1));
+        birds.add(new Bird(this, 1600, 8));
         spawnRandom();
         new WorldGen(this);
 
@@ -236,18 +237,18 @@ public class Dinorunner implements Screen {
 
         switch (randNum) {
             case 0:
-                addGoomba(new Goomba((this), 1600, 32));
+                addGoomba(new Goomba((this), 2000, 32));
                 Gdx.app.log("goomba", "new goomba added");
                 break;
             case 1:
-                addBird(new Bird(this, 1600, 32));
+                addBird(new Bird(this, 2000, 32));
                 Gdx.app.log("bird", "new bird added");
                 break;
             case 2:
                 Random random2 = new Random();
                 randNum = random.nextInt(3); // generates a random number between 0 and 2
                 Gdx.app.log("turtle", "new turtle added");
-                addTurtle(new Turtle(this, 1600, 32, randNum));
+                addTurtle(new Turtle(this, 2000, 32, randNum));
                 break;
             default:
                 Gdx.app.log("Error", "nothing was added");
