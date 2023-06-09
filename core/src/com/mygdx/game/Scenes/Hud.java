@@ -143,4 +143,12 @@ public class Hud implements Disposable {
     public int getScore(){
         return this.score;
     }
+
+    public int getWorldTimer(){
+        return this.wTimer;
+    }
+
+    public void addTimeCount(int time){
+        this.timeCount += time;
+    }
 }

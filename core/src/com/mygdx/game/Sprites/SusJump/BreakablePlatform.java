@@ -1,6 +1,7 @@
 package com.mygdx.game.Sprites.SusJump;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Screens.SusJump;
@@ -22,7 +23,8 @@ public class BreakablePlatform extends Platform{
 
     @Override
     public void onHeadHit() {
-        Gdx.app.log("DurablePlatform", "Break") ;
+        Gdx.app.log("DurablePlatform", "Break");
+        MyGdxGame.assetManager.get("assets/audio/sounds/breakblock.wav", Sound.class).play(0.5F);
         setCategoryFilter(MyGdxGame.DESTROYED_BIT);
         getCell().setTile(null);
         if(getCellRight() != null){

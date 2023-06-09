@@ -1,6 +1,7 @@
 package com.mygdx.game.Sprites.SusJump;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Screens.SusJump;
@@ -24,11 +25,11 @@ public class DurablePlatform extends Platform{
 
     @Override
     public void onHeadHit() {
-        //TODO PassThrough
         if(first){
             first = false;
             screen.getHud().addPoint(50);
         }
+        MyGdxGame.assetManager.get("assets/audio/sounds/SusJump/bounce.mp3", Sound.class).play(0.5F);
         Gdx.app.log("DurablePlatform", "JumpOn") ;
     }
 

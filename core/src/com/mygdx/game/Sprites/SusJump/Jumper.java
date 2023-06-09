@@ -2,10 +2,9 @@ package com.mygdx.game.Sprites.SusJump;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -13,7 +12,6 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Screens.SusJump;
 import com.mygdx.game.Sprites.Player.State;
@@ -80,25 +78,12 @@ public class Jumper extends Sprite {
         curState = getState();
 
         Texture texture;
-        switch (curState) {
-            case JUMPING:
-                texture = playerRunRight;
-                break;
-
-            case RUNNING:
-                texture = playerRunRight;
-                break;
-
-            case FALLING:
-            case STANDING:
-            default:
-                texture = playerRunRight;
-                break;
-        }
 
         if (body.getLinearVelocity().x < 0) {
             texture = playerRunRight;
         } else if (body.getLinearVelocity().x > 0) {
+            texture = playerRunLeft;
+        } else{
             texture = playerRunLeft;
         }
 
@@ -165,6 +150,7 @@ public class Jumper extends Sprite {
             body.applyLinearImpulse(new Vector2(-0.2f * MyGdxGame.PPM, 0), body.getWorldCenter(), true);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN) && onPortal){
+            MyGdxGame.assetManager.get("assets/audio/sounds/SusJump/vent.mp3", Sound.class).play(0.5F);
             nextLevel = true;
         }
         if(body.getPosition().y < 0){

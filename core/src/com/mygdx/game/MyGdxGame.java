@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Screens.BouncingBall;
 import com.mygdx.game.Screens.MarioScreen;
+import com.mygdx.game.Screens.SusJump;
+import com.mygdx.game.Screens.JumpKing;
 
 public class MyGdxGame extends Game {
 	public SpriteBatch batch;
@@ -66,6 +68,13 @@ public class MyGdxGame extends Game {
 		assetManager.load("assets/audio/sounds/flappybird/point.ogg", Sound.class);
 		assetManager.load("assets/audio/sounds/flappybird/Jump.mp3", Sound.class);
 		assetManager.load("assets/audio/sounds/flappybird/collide.mp3", Sound.class);
+
+		//SusJump Sounds
+		assetManager.load("assets/audio/music/susJump.mp3", Music.class);
+		assetManager.load("assets/audio/sounds/SusJump/bounce.mp3", Sound.class);
+		assetManager.load("assets/audio/sounds/SusJump/vent.mp3", Sound.class);
+		assetManager.load("assets/audio/sounds/SusJump/death.mp3", Sound.class);
+
 
 		assetManager.finishLoading();
 		

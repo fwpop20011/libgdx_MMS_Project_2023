@@ -4,7 +4,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Filter;
@@ -57,17 +56,6 @@ public abstract class Platform {
         
         fDef.restitution = this.restitution;
         fixture = body.createFixture(fDef);
-
-        /* 
-        PolygonShape head = new PolygonShape(); 
-        Vector2[] vertors = {new Vector2(-32, -12), new Vector2(32, -12),new Vector2(32, -7), new Vector2(-32, -7)};
-        head.set(vertors);
-
-        fDef.shape = head;
-        fDef.filter.categoryBits = MyGdxGame.ENEMY_HEAD_BIT;
-        bodyLow.createFixture(fDef).setUserData(this);
-        fixture = bodyLow.createFixture(fDef);
-        */
     }
 
     public abstract void onHeadHit();

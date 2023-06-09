@@ -2,8 +2,6 @@ package com.mygdx.game.Sprites.SusJump;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Screens.SusJump;
 

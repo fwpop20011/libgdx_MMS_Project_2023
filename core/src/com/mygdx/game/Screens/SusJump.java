@@ -2,6 +2,7 @@ package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -60,8 +61,11 @@ public class SusJump implements Screen{
     public SusJump(MyGdxGame game, int level){
         this(game, level, 0);
     }
-
     public SusJump(MyGdxGame game, int level, int score){
+        this(game, level, 0, 0);
+    }
+
+    public SusJump(MyGdxGame game, int level, int score, int worldTime){
         this.game = game;
 
         //TODO add
@@ -78,10 +82,10 @@ public class SusJump implements Screen{
         // creates our game Hud
         hud = new Hud(game.batch);
         hud.reName("SuS-Jump", null, "Score");
-
+        Gdx.app.log("timeSet", "time:" + worldTime);
+        hud.addTimeCount(worldTime);
         // load the map created with tiled
         mapLoader = new TmxMapLoader();
-        //TODO add
 
         loadMap(level);
         renderer = new OrthogonalTiledMapRenderer(map);
@@ -93,7 +97,6 @@ public class SusJump implements Screen{
         b2dr = new Box2DDebugRenderer();
 
         // generates a new map with objects
-        //TODO: add own WorldCreator
         SusWorldCreator susWorldCreator = new SusWorldCreator(this);
         tentacles = susWorldCreator.getTentacles();
 
@@ -104,9 +107,8 @@ public class SusJump implements Screen{
         world.setContactListener(new SusContactListener());
 
         // world music
-        //TODO: music
-        musicLoader = new MusicLoader("assets/audio/music/mario_music.ogg");
-        musicLoader.setVolume(0);
+        musicLoader = new MusicLoader("assets/audio/music/susJump.mp3");
+        musicLoader.setVolume(20);
         musicLoader.playMusic(1);
         this.getHud().addPoint(score);
     }
@@ -176,7 +178,7 @@ public class SusJump implements Screen{
         renderer.render();
 
         // render Box2dDebugLines
-        b2dr.render(world, gameCam.combined);
+        //b2dr.render(world, gameCam.combined);
 
         game.batch.setProjectionMatrix(gameCam.combined);
         game.batch.begin();
@@ -222,6 +224,7 @@ public class SusJump implements Screen{
         b2dr.dispose();
         hud.dispose();
         game.dispose();
+        Gdx.app.log("dispose", "Disposed");
     }
 
     
@@ -252,6 +255,8 @@ public class SusJump implements Screen{
     public void NextLevel() {
         // Game overScreen
         if (player.isPlayerDead()) {
+            MyGdxGame.assetManager.get("assets/audio/sounds/SusJump/death.mp3", Sound.class).play(0.5F);
+            musicLoader.playMusic(-1);
             game.setScreen(new GameOverScreen(game, 4));
             dispose();
         }
@@ -260,17 +265,24 @@ public class SusJump implements Screen{
         if (player.nextLevel()) {
             Double randomNum = Math.random();
             Gdx.app.log("nextLevel", "Random Number:" + randomNum);
-            if(randomNum < 0.5){
+            Gdx.app.log("timeGet", "time:" + getHud().getWorldTimer());
+            if(randomNum < 0.2){ //20% chance
+                Gdx.app.log("nextLevel", "SusJumpLevel1");
+                    musicLoader.playMusic(0);
+                    Gdx.app.log("score", "Went to next level with points:" + getPoints());
+                    game.setScreen(new SusJump(game, 1, getPoints(), getHud().getWorldTimer()));
+                    dispose();
+            } else if(randomNum < 0.6){//40% chance
                 Gdx.app.log("nextLevel", "SusJumpLevel2");
                     musicLoader.playMusic(0);
                     Gdx.app.log("score", "Went to next level with points:" + getPoints());
-                    game.setScreen(new SusJump(game, 3, getPoints()));
+                    game.setScreen(new SusJump(game, 2, getPoints(), getHud().getWorldTimer()));
                     dispose();
-            } else{
+            } else{ //40% chance
                 Gdx.app.log("nextLevel", "SusJumpLevel3");
-                    musicLoader.playMusic(0);
+                    musicLoader.playMusic(3);
                     Gdx.app.log("score", "Went to next level with points:" + getPoints());
-                    game.setScreen(new SusJump(game, 3, getPoints()));
+                    game.setScreen(new SusJump(game, 3, getPoints(), getHud().getWorldTimer()));
                     dispose();
             }
              

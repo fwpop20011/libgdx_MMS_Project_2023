@@ -118,7 +118,7 @@ public class JumpKing implements Screen {
 
         orthogonalTiledMapRenderer.render();
 
-        box2DDebugRenderer.render(world, camera.combined);
+        //box2DDebugRenderer.render(world, camera.combined);
 
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
