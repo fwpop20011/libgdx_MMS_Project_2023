@@ -74,5 +74,6 @@ public class BouncingBall implements Screen {
     public void dispose() {
         hud.dispose();
         shape.dispose();
+        game.dispose();
     }
 }

@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.Screens.PlayScreen;
+import com.mygdx.game.Screens.MarioScreen;
 import com.mygdx.tools.KeyGen;
 
 public class Pipe {
@@ -25,7 +25,7 @@ public class Pipe {
 
     protected Fixture fixture;
 
-    public Pipe(PlayScreen screen, Rectangle bounds) {
+    public Pipe(MarioScreen screen, Rectangle bounds) {
         this.world = screen.getWorld();
         this.map = screen.getMap();
         this.bounds = bounds;

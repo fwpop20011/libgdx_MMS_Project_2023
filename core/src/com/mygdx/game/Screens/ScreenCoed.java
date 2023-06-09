@@ -21,16 +21,14 @@ import com.mygdx.game.Scenes.Hud;
 
 import com.mygdx.game.Sprites.PlayerKing;
 
-import com.mygdx.tools.KeyGen;
 import com.mygdx.tools.MusicLoader;
 import com.mygdx.tools.JumpKing.JumpKingContactListener;
 import com.mygdx.tools.JumpKing.JumpKingWorldCreator;
 
 public class ScreenCoed implements Screen {
 
-
     private OrthographicCamera camera;
-    
+
     private Hud hud;
 
     private TextureAtlas atlas;
@@ -50,67 +48,70 @@ public class ScreenCoed implements Screen {
 
     private boolean onFinish;
 
-    
-
     private MusicLoader musicLoader;
 
-    //private TileMap tileMaphelper;
+    // private TileMap tileMaphelper;
 
-    public ScreenCoed(MyGdxGame game){
+    public ScreenCoed(MyGdxGame game) {
         this.game = game;
 
         atlas = new TextureAtlas("assets/MarioAndEnemies.pack");
-        
+
         camera = new OrthographicCamera();
-        
+
         viewport = new FitViewport(MyGdxGame.V_Width, MyGdxGame.V_Height, camera);
 
         hud = new Hud(game.batch);
-        
+
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("assets/worlds/JumpKing/jumpking.tmx");
         orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(map);
-        
+
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
 
         world = new World(new Vector2(0, -4 * MyGdxGame.PPM), true);
         box2DDebugRenderer = new Box2DDebugRenderer();
 
-
         JumpKingWorldCreator jumpKingWorldCreator = new JumpKingWorldCreator(this);
         world.setContactListener(new JumpKingContactListener());
 
         player = new PlayerKing(this);
-        
-       
-        musicLoader = new MusicLoader("assets/audio/music/jumper.mp3");
+
+        musicLoader = new MusicLoader("assets/audio/music/Jumper.mp3");
         musicLoader.setVolume(0);
         musicLoader.playMusic(1);
-        //this.batch = new SpriteBatch();
 
-        //this.tileMaphelper = new TileMap();
-       //this.orthogonalTiledMapRenderer = tileMaphelper.setUpMap();
+        hud.reName("jump king", "", "Points");
+        // this.batch = new SpriteBatch();
+
+        // this.tileMaphelper = new TileMap();
+        // this.orthogonalTiledMapRenderer = tileMaphelper.setUpMap();
     }
-    
+
     private void update(float deltaT) {
-       camera.position.x = player.body.getPosition().x;
-       camera.position.y = player.body.getPosition().y;
-       world.step(1/60f, 6,2);
-        
-       player.update(deltaT);
-        
-       camera.update();
+        camera.position.x = player.body.getPosition().x;
+        camera.position.y = player.body.getPosition().y;
+        world.step(1 / 60f, 6, 2);
 
-       orthogonalTiledMapRenderer.setView(camera);
+        player.update(deltaT);
+
+        //set the points to the heightest the player has been
+        if (hud.getScore() < player.getY()) {
+            hud.setPoints((int) player.getY());
+        }
+
+        hud.updateTimeAdditive(deltaT);
+
+        camera.update();
+
+        orthogonalTiledMapRenderer.setView(camera);
     }
-
-    
 
     @Override
-    public void render(float delta){
+    public void render(float delta) {
         update(delta);
 
-        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         orthogonalTiledMapRenderer.render();
@@ -142,10 +143,8 @@ public class ScreenCoed implements Screen {
 
     @Override
     public void show() {
-        
-    }
 
-    
+    }
 
     @Override
     public void resize(int width, int height) {
@@ -154,17 +153,17 @@ public class ScreenCoed implements Screen {
 
     @Override
     public void pause() {
-        
+
     }
 
     @Override
     public void resume() {
-      
+
     }
 
     @Override
     public void hide() {
-       
+
     }
 
     @Override
@@ -174,7 +173,7 @@ public class ScreenCoed implements Screen {
         world.dispose();
         box2DDebugRenderer.dispose();
         hud.dispose();
-        KeyGen.reset(-4);
+        game.dispose();
     }
 
     public void NextLevel() {
@@ -184,7 +183,7 @@ public class ScreenCoed implements Screen {
             dispose();
         }
 
-        if(player.nextLevel()){
+        if (player.nextLevel()) {
             game.setScreen(new GameOverScreen(game, 0));
             dispose();
         }

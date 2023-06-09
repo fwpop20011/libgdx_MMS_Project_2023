@@ -1,7 +1,7 @@
 package com.mygdx.tools;
 
 public class KeyGen {
-    private static int key = -4;
+    private static int key = 0;
 
     public static int getKey(){
         key += 1;

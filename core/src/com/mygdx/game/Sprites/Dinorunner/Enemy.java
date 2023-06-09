@@ -8,7 +8,6 @@ import com.mygdx.game.Screens.Dinorunner;
 public abstract class Enemy extends Sprite{
     protected World world;
     protected Dinorunner screen;
-    public Body body;
 
     public Enemy(Dinorunner screen, float x, float y){
         this.world = screen.getWorld();
@@ -16,10 +15,6 @@ public abstract class Enemy extends Sprite{
         setPosition(x, y);
         defineEnemy();
     }
-
-    public abstract void hitOnHead();
-
-    public abstract void hitObject();
 
     protected abstract void defineEnemy();
 }

@@ -145,9 +145,13 @@ public class SusJump implements Screen{
         world.step(1 / 60f, 6, 2);
 
         player.update(deltaT);
+
         for (Tentacle tentacle : tentacles) {
             tentacle.update(deltaT);
         }
+
+        //world time 
+        hud.updateTimeAdditive(deltaT);
 
         gameCam.update();
         // renders what the game camera can see
@@ -217,6 +221,7 @@ public class SusJump implements Screen{
         world.dispose();
         b2dr.dispose();
         hud.dispose();
+        game.dispose();
     }
 
     

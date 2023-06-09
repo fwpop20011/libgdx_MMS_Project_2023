@@ -2,6 +2,7 @@ package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -24,11 +25,11 @@ import com.mygdx.tools.KeyGen;
 import com.mygdx.tools.MusicLoader;
 import com.mygdx.tools.WorldContactListener;
 
-public class PlayScreen implements Screen {
+public class MarioScreen implements Screen {
     private MyGdxGame game;
     private TextureAtlas atlas;
 
-    private OrthographicCamera gameCam;
+    private OrthographicCamera cam;
     private Viewport gamePort;
     private Hud hud;
 
@@ -48,16 +49,16 @@ public class PlayScreen implements Screen {
     // music
     MusicLoader musicLoader;
 
-    public PlayScreen(MyGdxGame game) {
+    public MarioScreen(MyGdxGame game) {
         this.game = game;
 
         atlas = new TextureAtlas("assets/MarioAndEnemies.pack");
         // camera which follows the player.
-        gameCam = new OrthographicCamera();
+        cam = new OrthographicCamera();
 
         // creates a viewport to keep the aspect ration and other objects hidden, that
         // are not meant to be seen.
-        gamePort = new FitViewport(MyGdxGame.V_Width, MyGdxGame.V_Height, gameCam);
+        gamePort = new FitViewport(MyGdxGame.V_Width, MyGdxGame.V_Height, cam);
 
         // creates our game Hud
         hud = new Hud(game.batch);
@@ -68,9 +69,9 @@ public class PlayScreen implements Screen {
         renderer = new OrthogonalTiledMapRenderer(map);
 
         // set the game camera to be centered at the start of the level
-        gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
+        cam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
-        world = new World(new Vector2(0, -7 * MyGdxGame.PPM), true);
+        world = new World(new Vector2(0, -8 * MyGdxGame.PPM), true);
         b2dr = new Box2DDebugRenderer();
 
         // generates a new map with objects
@@ -90,7 +91,7 @@ public class PlayScreen implements Screen {
     }
 
     public void update(float deltaT) {
-        gameCam.position.x = player.body.getPosition().x;
+        cam.position.x = player.body.getPosition().x;
 
         // calculates the physics every 60 seconds
         world.step(1 / 60f, 6, 2);
@@ -100,9 +101,9 @@ public class PlayScreen implements Screen {
             goomba.update(deltaT);
         }
 
-        gameCam.update();
+        cam.update();
         // renders what the game camera can see
-        renderer.setView(gameCam);
+        renderer.setView(cam);
     }
 
     public TextureAtlas getAtlas() {
@@ -134,9 +135,9 @@ public class PlayScreen implements Screen {
         renderer.render();
 
         // render Box2dDebugLines
-        b2dr.render(world, gameCam.combined);
+        b2dr.render(world, cam.combined);
 
-        game.batch.setProjectionMatrix(gameCam.combined);
+        game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
         player.draw(game.batch);
 
@@ -180,41 +181,44 @@ public class PlayScreen implements Screen {
         world.dispose();
         b2dr.dispose();
         hud.dispose();
-        KeyGen.reset(-4);
+        KeyGen.reset(0);
     }
 
     public void NextLevel() {
         // Game overScreen
         if (player.isPlayerDead()) {
-            game.setScreen(new GameOverScreen(game, 0));
+            MyGdxGame.assetManager.get("assets/audio/sounds/mariodie.wav", Sound.class).play();
+            game.setScreen(new GameOverScreen(game, -1));
             dispose();
         }
 
         // other minigames
         if (player.nextLevel()) {
+            musicLoader.playMusic(0);
             switch (player.getPlayerOnPipeKey()) {
                 case 1:
                     Gdx.app.log("nextLevel", "Dinorunner");
-                    musicLoader.playMusic(0);
                     game.setScreen(new Dinorunner(game));
                     dispose();
                     break;
                 case 2:
                     Gdx.app.log("nextLevel", "BouncingBall");
-                    musicLoader.playMusic(0);
                     game.setScreen(new BouncingBall(game));
                     dispose();
                     break;
                 case 3:
                     Gdx.app.log("nextLevel", "FlappyBirds");
-                    musicLoader.playMusic(0);
                     game.setScreen(new FlappyBird(game));
                     dispose();
                     break;
                 case 4:
                     Gdx.app.log("nextLevel", "SusJump");
-                    musicLoader.playMusic(0);
                     game.setScreen(new SusJump(game));
+                    dispose();
+                    break;
+                case 5:
+                    Gdx.app.log("nextLevel", "JumpKing");
+                    game.setScreen(new ScreenCoed(game));
                     dispose();
                     break;
             }

@@ -67,6 +67,7 @@ public class FlappyBird implements Screen {
 
     @Override
     public void render(float delta) {
+        update(delta);
         //Begin drawing
         batch.begin();
 
@@ -88,10 +89,15 @@ public class FlappyBird implements Screen {
         batch.end();
 
         // Display score
-        hud.reName("FlappyBird", "Score: " +  score, "Steve");
+        hud.reName("FlappyBird", "Score: " +  score, "");
         hud.stage.draw();
 
         updateScene(delta);
+    }
+
+    public void update(float delta){
+        //update the huds timer
+        hud.updateTimeAdditive(delta);
     }
 
     public void updateScene(float delta){
@@ -152,7 +158,7 @@ public class FlappyBird implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        
     }
 
     @Override
@@ -186,5 +192,6 @@ public class FlappyBird implements Screen {
         jumpMusic.dispose();
         collideMusic.dispose();
         pointMusic.dispose();
+        game.dispose();
     }
 }

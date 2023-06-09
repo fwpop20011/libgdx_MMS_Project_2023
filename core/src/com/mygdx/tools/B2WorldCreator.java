@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.Objects.Pipe;
-import com.mygdx.game.Screens.PlayScreen;
+import com.mygdx.game.Screens.MarioScreen;
 import com.mygdx.game.Sprites.Brick;
 import com.mygdx.game.Sprites.Coin;
 import com.mygdx.game.Sprites.Goomba;
@@ -20,7 +20,7 @@ import com.mygdx.game.Sprites.Goomba;
 public class B2WorldCreator {
     private Array<Goomba> goombas = new Array<>();
 
-    public B2WorldCreator(PlayScreen screen) {
+    public B2WorldCreator(MarioScreen screen) {
         World world = screen.getWorld();
         TiledMap map = screen.getMap();
 

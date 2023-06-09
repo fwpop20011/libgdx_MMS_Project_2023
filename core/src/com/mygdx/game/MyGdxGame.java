@@ -7,9 +7,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Screens.Dinorunner;
-import com.mygdx.game.Screens.SusJump;
-import com.mygdx.game.Screens.PlayScreen;
+import com.mygdx.game.Screens.MarioScreen;
 
 public class MyGdxGame extends Game {
 	public SpriteBatch batch;
@@ -42,11 +40,17 @@ public class MyGdxGame extends Game {
 	public void create() {
 		batch = new SpriteBatch();
 		assetManager = new AssetManager();
-		//Mario music
+
+		//Music 
+		assetManager.load("assets/audio/music/Jumper.mp3", Music.class);
+		
+		//Mario sounds
 		assetManager.load("assets/audio/music/mario_music.ogg", Music.class);
 		assetManager.load("assets/audio/sounds/coin.wav", Sound.class);
 		assetManager.load("assets/audio/sounds/breakblock.wav", Sound.class);
 		assetManager.load("assets/audio/sounds/bump.wav", Sound.class);
+		assetManager.load("assets/audio/sounds/mariodie.wav", Sound.class);
+		
 
 		//Flappy Birds Sprites
 		assetManager.load("assets/worlds/FlappyBird/bg.png", Texture.class);
@@ -64,7 +68,7 @@ public class MyGdxGame extends Game {
 
 		assetManager.finishLoading();
 		
-		setScreen(new PlayScreen(this));
+		setScreen(new MarioScreen(this));
 	} 
 
 	@Override

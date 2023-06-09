@@ -14,7 +14,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.Screens.PlayScreen;
+import com.mygdx.game.Screens.MarioScreen;
 import com.mygdx.game.Screens.ScreenCoed;
 
 public class PlayerKing extends Sprite {
@@ -131,7 +131,7 @@ public class PlayerKing extends Sprite {
 
         FixtureDef fDef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(5);
+        shape.setRadius(12);
         fDef.filter.categoryBits = MyGdxGame.PLAYER_BIT;
         // what can the player collid with;
         fDef.filter.maskBits = MyGdxGame.DEFAULT |
@@ -200,6 +200,4 @@ public class PlayerKing extends Sprite {
     public void dispose(){
         world.dispose();
     }
-
-    
 }

@@ -6,11 +6,11 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.Screens.PlayScreen;
+import com.mygdx.game.Screens.MarioScreen;
 
 public class Brick extends InteractiveTile {
 
-    public Brick(PlayScreen screen, Rectangle bounds) {
+    public Brick(MarioScreen screen, Rectangle bounds) {
         super(screen, bounds);
         setCategoryFilter(MyGdxGame.BRICK_BIT);
         fixture.setUserData(this);

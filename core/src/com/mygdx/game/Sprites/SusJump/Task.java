@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.Screens.PlayScreen;
+import com.mygdx.game.Screens.MarioScreen;
 import com.mygdx.game.Screens.SusJump;
 
 public class Task extends Platform {

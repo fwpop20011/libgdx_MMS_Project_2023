@@ -1,26 +1,26 @@
 package com.mygdx.game.Sprites;
 
+import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.Screens.MarioScreen;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.Screens.PlayScreen;
+
 
 public class Player extends Sprite {
-    public enum State {
-        FALLING, JUMPING, STANDING, RUNNING
-    }
-
     public State curState;
     public State prevState;
     public World world;
@@ -35,7 +35,7 @@ public class Player extends Sprite {
     private boolean onTopOfPipe;
     private int onTopOfPipeKey;
 
-    public Player(PlayScreen screen) {
+    public Player(MarioScreen screen) {
         super(screen.getAtlas().findRegion("little_mario"));
         this.world = screen.getWorld();
 
@@ -82,11 +82,11 @@ public class Player extends Sprite {
         TextureRegion region;
         switch (curState) {
             case JUMPING:
-                region = (TextureRegion) playerJump.getKeyFrame(stateTimer);
+                region = playerJump.getKeyFrame(stateTimer);
                 break;
 
             case RUNNING:
-                region = (TextureRegion) playerRun.getKeyFrame(stateTimer, true);
+                region = playerRun.getKeyFrame(stateTimer, true);
                 break;
 
             case FALLING:
@@ -205,5 +205,9 @@ public class Player extends Sprite {
 
     public void dispose(){
         world.dispose();
+    }
+
+    public enum State {
+        FALLING, JUMPING, STANDING, RUNNING
     }
 }

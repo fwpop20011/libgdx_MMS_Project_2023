@@ -125,7 +125,8 @@ public class Runner extends Sprite {
         fDef.filter.categoryBits = MyGdxGame.PLAYER_BIT;
         // what can the player collid with;
         fDef.filter.maskBits = MyGdxGame.FLOOR_BIT | 
-        MyGdxGame.WALL_BIT;
+        MyGdxGame.WALL_BIT |
+        MyGdxGame.ENEMY_BIT;
 
         fDef.shape = shape;
         body.createFixture(fDef).setUserData(this);
@@ -157,7 +158,7 @@ public class Runner extends Sprite {
     }
 
     /**set the character sprite to dead */
-    private void playerDeath(){
+    public void playerDeath(){
         isDead = true;
     }
 

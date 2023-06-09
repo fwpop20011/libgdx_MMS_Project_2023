@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.Screens.PlayScreen;
+import com.mygdx.game.Screens.MarioScreen;
 
 public abstract class InteractiveTile {
     protected World world;
@@ -22,7 +22,7 @@ public abstract class InteractiveTile {
 
     protected Fixture fixture;
 
-    public InteractiveTile(PlayScreen screen, Rectangle bounds) {
+    public InteractiveTile(MarioScreen screen, Rectangle bounds) {
         this.world = screen.getWorld();
         this.map = screen.getMap();
         this.bounds = bounds;

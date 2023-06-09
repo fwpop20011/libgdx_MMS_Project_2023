@@ -2,6 +2,7 @@ package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -36,9 +37,13 @@ public class GameOverScreen implements Screen {
 
         Label gameOverLabel = new Label("game over", font);
         Label playLabel = new Label("Click to respawn", font);
+        Label goBack = new Label("or press escape to go back", font);
+
         table.add(gameOverLabel).expandX();
         table.row();
         table.add(playLabel).expandX().padTop(5);
+        table.row();
+        table.add(goBack).expandX().padTop(5);
 
         stage.addActor(table);
     }
@@ -52,23 +57,38 @@ public class GameOverScreen implements Screen {
     public void render(float delta) {
         if (Gdx.input.justTouched()) {
             switch (miniGameIndex) {
-                //mario game
-                case 0:
-                    game.setScreen(new PlayScreen((MyGdxGame) game));
+                // mario game
+                case -1:
+                    game.setScreen(new MarioScreen((MyGdxGame) game));
                     dispose();
                     break;
-                //flappy bird
+                case 1:
+                    game.setScreen(new Dinorunner((MyGdxGame) game));
+                    dispose();
+                    break;
+                // Bouncing ball
+                case 2:
+                    Gdx.app.log("nextLevel", "BouncingBall");
+                    game.setScreen(new BouncingBall((MyGdxGame) game));
+                    dispose();
+                    break;
+                // flappy bird
                 case 3:
                     game.setScreen(new FlappyBird((MyGdxGame) game));
                     dispose();
                     break;
-                //susjump
+                // susjump
                 case 4:
                     game.setScreen(new SusJump((MyGdxGame) game, 1));
                     dispose();
                     break;
-                
+
             }
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            game.setScreen(new MarioScreen((MyGdxGame) game));
+            dispose();
         }
 
         Gdx.gl.glClearColor(0, 0, 0, 1);

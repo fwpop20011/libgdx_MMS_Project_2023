@@ -8,12 +8,12 @@ import com.badlogic.gdx.math.Rectangle;
 
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.Screens.PlayScreen;
+import com.mygdx.game.Screens.MarioScreen;
 
 public class Coin extends InteractiveTile {
     private static TiledMapTileSet tileSet;
 
-    public Coin(PlayScreen screen, Rectangle bounds) {
+    public Coin(MarioScreen screen, Rectangle bounds) {
         super(screen, bounds);
         tileSet =map.getTileSets().getTileSet("tileset_gutter");
         setCategoryFilter(MyGdxGame.COIN_BIT);

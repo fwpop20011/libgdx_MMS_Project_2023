@@ -9,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.Screens.PlayScreen;
+import com.mygdx.game.Screens.MarioScreen;
 
 public class Goomba extends Enemy {
     private float stateTimer;
@@ -21,7 +21,7 @@ public class Goomba extends Enemy {
     private boolean moveLeft;
     Array<TextureRegion> textures = new Array<>();
 
-    public Goomba(PlayScreen screen, float x, float y) {
+    public Goomba(MarioScreen screen, float x, float y) {
         super(screen, x, y);
 
         moveLeft = true;
