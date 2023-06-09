@@ -77,7 +77,7 @@ public class MyGdxGame extends Game {
 
 		assetManager.finishLoading();
 		
-		setScreen(new FlappyBird(this));
+		setScreen(new MarioScreen(this));
 	} 
 
 	@Override
