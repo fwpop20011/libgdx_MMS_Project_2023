@@ -41,7 +41,7 @@ public class Turtle extends Enemy {
                 pos = 371;
                 break;
             case 2:
-                pos = 407;
+                pos = 403;
                 break;
         }
         for (int i = 0; i < 2; i++) {

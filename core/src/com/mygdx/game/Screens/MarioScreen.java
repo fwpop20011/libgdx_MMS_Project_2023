@@ -17,7 +17,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.Scenes.Hud;
 import com.mygdx.game.Sprites.Goomba;
 import com.mygdx.game.Sprites.Player;
 import com.mygdx.tools.B2WorldCreator;
@@ -31,7 +30,6 @@ public class MarioScreen implements Screen {
 
     private OrthographicCamera cam;
     private Viewport gamePort;
-    private Hud hud;
 
     // Varibels for tiled maps
     private TmxMapLoader mapLoader;
@@ -60,8 +58,6 @@ public class MarioScreen implements Screen {
         // are not meant to be seen.
         gamePort = new FitViewport(MyGdxGame.V_Width, MyGdxGame.V_Height, cam);
 
-        // creates our game Hud
-        hud = new Hud(game.batch);
 
         // load the map created with tiled
         mapLoader = new TmxMapLoader();
@@ -147,9 +143,6 @@ public class MarioScreen implements Screen {
 
         game.batch.end();
 
-        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-        hud.stage.draw();
-
         NextLevel();
     }
 
@@ -180,7 +173,6 @@ public class MarioScreen implements Screen {
         renderer.dispose();
         world.dispose();
         b2dr.dispose();
-        hud.dispose();
         KeyGen.reset(0);
     }
 

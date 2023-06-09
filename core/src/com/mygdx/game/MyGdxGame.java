@@ -7,9 +7,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Screens.BouncingBall;
 import com.mygdx.game.Screens.MarioScreen;
-import com.mygdx.game.Screens.JumpKing;
 
 public class MyGdxGame extends Game {
 	public SpriteBatch batch;
@@ -43,7 +41,7 @@ public class MyGdxGame extends Game {
 		batch = new SpriteBatch();
 		assetManager = new AssetManager();
 
-		//Music 
+		//Music for Jumpking and dinorunner
 		assetManager.load("assets/audio/music/Jumper.mp3", Music.class);
 		
 		//Mario sounds
